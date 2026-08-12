@@ -1,0 +1,17 @@
+{
+  "youRank": 12,
+  "youPoints": 140,
+  "howToEarn": [
+    { "action": "Finish a lesson", "points": 20 },
+    { "action": "Submit a flood report", "points": 35 },
+    { "action": "Build your evacuation plan", "points": 50 },
+    { "action": "Keep a 7-day streak", "points": 30 }
+  ],
+  "rankings": [
+    { "rank": 1, "name": "Adwoa B.", "district": "Odawna", "points": 890, "badge": "Drain Guardian" },
+    { "rank": 2, "name": "Kwame T.", "district": "Alajo", "points": 760, "badge": "Flood Scout" },
+    { "rank": 3, "name": "Efua N.", "district": "Kaneshie", "points": 705, "badge": "Flood Scout" },
+    { "rank": 4, "name": "Yaw O.", "district": "Circle", "points": 640, "badge": null },
+    { "rank": 5, "name": "Abena K.", "district": "Ashaiman", "points": 580, "badge": null }
+  ]
+}

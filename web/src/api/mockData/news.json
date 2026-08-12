@@ -1,0 +1,47 @@
+[
+  {
+    "id": "n-1",
+    "title": "GMet forecasts heavier rainfall across Greater Accra this week",
+    "source": "GMet",
+    "publishedAt": "2026-08-10T06:00:00Z",
+    "category": "weather",
+    "summary": "The Ghana Meteorological Agency expects sustained heavy rainfall through the week, raising flood risk in low-lying districts.",
+    "videoUrl": null
+  },
+  {
+    "id": "n-2",
+    "title": "Odaw drainage project reaches 60% completion",
+    "source": "NADMO",
+    "publishedAt": "2026-08-09T12:30:00Z",
+    "category": "infrastructure",
+    "summary": "Desilting works along the Odaw channel are ahead of schedule, targeted for completion before the next rainy peak.",
+    "videoUrl": null
+  },
+  {
+    "id": "n-3",
+    "title": "Three neighbourhoods complete this month's drain clearance drive",
+    "source": "EcoPulse Community",
+    "publishedAt": "2026-08-08T14:00:00Z",
+    "category": "community",
+    "summary": "Kaneshie, Alajo, and Circle residents cleared over 40 blocked drains this month, earning Eco-Tokens along the way.",
+    "videoUrl": null
+  },
+  {
+    "id": "n-4",
+    "title": "What to pack in a flood emergency go-bag",
+    "source": "EcoPulse Education",
+    "publishedAt": "2026-08-07T09:00:00Z",
+    "category": "education",
+    "summary": "A short video walkthrough of the essentials for a household evacuation kit, tailored to flood-prone areas.",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": "n-5",
+    "title": "Understanding flood risk scores in your area",
+    "source": "EcoPulse Education",
+    "publishedAt": "2026-08-05T09:00:00Z",
+    "category": "education",
+    "summary": "How EcoPulse calculates the daily flood-risk score for each zone, and what the levels mean for your household.",
+    "videoUrl": null
+  }
+]

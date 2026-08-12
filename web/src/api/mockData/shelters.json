@@ -1,0 +1,62 @@
+[
+  {
+    "id": "sh-1",
+    "name": "Accra Sports Stadium",
+    "address": "Barnes Rd, Accra",
+    "district": "Osu",
+    "latitude": 5.5487,
+    "longitude": -0.1969,
+    "capacity": 2000,
+    "occupancy": 140,
+    "accessibility": true,
+    "amenities": ["Water", "Medical post", "Wheelchair access"]
+  },
+  {
+    "id": "sh-2",
+    "name": "Kaneshie Community Centre",
+    "address": "Kaneshie First Light",
+    "district": "Kaneshie",
+    "latitude": 5.5558,
+    "longitude": -0.2337,
+    "capacity": 350,
+    "occupancy": 60,
+    "accessibility": true,
+    "amenities": ["Water", "Food distribution"]
+  },
+  {
+    "id": "sh-3",
+    "name": "Circle Interchange Assembly Hall",
+    "address": "Kwame Nkrumah Circle",
+    "district": "Circle",
+    "latitude": 5.5717,
+    "longitude": -0.2323,
+    "capacity": 500,
+    "occupancy": 0,
+    "accessibility": false,
+    "amenities": ["Water"]
+  },
+  {
+    "id": "sh-4",
+    "name": "Alajo Presbyterian School",
+    "address": "Alajo Main Rd",
+    "district": "Alajo",
+    "latitude": 5.5806,
+    "longitude": -0.2262,
+    "capacity": 220,
+    "occupancy": 15,
+    "accessibility": true,
+    "amenities": ["Water", "Medical post"]
+  },
+  {
+    "id": "sh-5",
+    "name": "Odawna District Office",
+    "address": "Odawna Rd",
+    "district": "Odawna",
+    "latitude": 5.5602,
+    "longitude": -0.2094,
+    "capacity": 150,
+    "occupancy": 0,
+    "accessibility": false,
+    "amenities": ["Water", "Food distribution"]
+  }
+]

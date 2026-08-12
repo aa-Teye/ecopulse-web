@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <!-- Forest green circular background -->
+  <rect width="48" height="48" rx="12" fill="#0F3D2E"/>
+
+  <!-- Water drop shape (clipped to bottom half) -->
+  <!-- Outer water drop: subtle teal fill -->
+  <path d="M24 8 C24 8 13 20 13 28 C13 34.627 17.924 40 24 40 C30.076 40 35 34.627 35 28 C35 20 24 8 24 8 Z" fill="#1A5C42" opacity="0.8"/>
+
+  <!-- Rising water fill inside drop -->
+  <clipPath id="drop-clip">
+    <path d="M24 8 C24 8 13 20 13 28 C13 34.627 17.924 40 24 40 C30.076 40 35 34.627 35 28 C35 20 24 8 24 8 Z"/>
+  </clipPath>
+  <rect x="13" y="27" width="22" height="14" fill="#2A8C5E" clip-path="url(#drop-clip)"/>
+
+  <!-- Drop outline -->
+  <path d="M24 8 C24 8 13 20 13 28 C13 34.627 17.924 40 24 40 C30.076 40 35 34.627 35 28 C35 20 24 8 24 8 Z" stroke="#3DB87A" stroke-width="1.5" fill="none"/>
+
+  <!-- Pulse / ECG line across the middle in gold -->
+  <polyline
+    points="13,28 17,28 19,22 21,34 23,26 25,30 27,28 35,28"
+    stroke="#F5C842"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+    clip-path="url(#drop-clip)"
+  />
+
+  <!-- Tiny alert dot top-right of drop (live indicator) -->
+  <circle cx="33" cy="13" r="4" fill="#F5C842"/>
+  <circle cx="33" cy="13" r="2.2" fill="#0F3D2E"/>
+</svg>

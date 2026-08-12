@@ -1,0 +1,37 @@
+[
+  {
+    "id": "d-1042",
+    "location": "Kaneshie Market, Accra",
+    "status": "pending",
+    "reportedAt": "2026-08-10T09:12:00Z",
+    "description": "Drain blocked with plastic waste, water pooling on the road."
+  },
+  {
+    "id": "d-1040",
+    "location": "Odawna Market Junction, Accra",
+    "status": "pending",
+    "reportedAt": "2026-08-10T07:30:00Z",
+    "description": "Silt build-up after last night's rain, slow drainage."
+  },
+  {
+    "id": "d-1039",
+    "location": "Circle Interchange, Accra",
+    "status": "approved",
+    "reportedAt": "2026-08-09T16:40:00Z",
+    "description": "Cleared by neighbourhood team, flow restored."
+  },
+  {
+    "id": "d-1035",
+    "location": "Achimota Roundabout, Accra",
+    "status": "approved",
+    "reportedAt": "2026-08-08T13:15:00Z",
+    "description": "Blockage removed, sensor confirms normal flow."
+  },
+  {
+    "id": "d-1031",
+    "location": "Odaw River, Alajo",
+    "status": "rejected",
+    "reportedAt": "2026-08-08T07:05:00Z",
+    "description": "Duplicate of an existing report."
+  }
+]

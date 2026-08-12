@@ -1,0 +1,34 @@
+[
+  {
+    "id": "l-1",
+    "title": "Flooding in urban areas",
+    "minutes": 2,
+    "points": 20,
+    "summary": "Learn why choked drains, not heavy rain, cause most flood damage in Accra, and the three warning signs a drain near you is close to overflowing.",
+    "completed": false
+  },
+  {
+    "id": "l-2",
+    "title": "Waste and drainage",
+    "minutes": 3,
+    "points": 20,
+    "summary": "How household waste ends up in the drainage system, and the small habits that keep it out.",
+    "completed": false
+  },
+  {
+    "id": "l-3",
+    "title": "Reading a flood-risk score",
+    "minutes": 5,
+    "points": 20,
+    "summary": "A short guide to what Wɔnɔ's daily score means, and what to do differently at LOW, Moderate, and High.",
+    "completed": false
+  },
+  {
+    "id": "l-4",
+    "title": "Building your evacuation plan",
+    "minutes": 2,
+    "points": 20,
+    "summary": "What makes an emergency plan usable in the moment: dependents, mobility needs, and a shelter you can actually reach.",
+    "completed": false
+  }
+]

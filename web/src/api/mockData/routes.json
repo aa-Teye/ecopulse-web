@@ -1,0 +1,58 @@
+[
+  {
+    "id": "rt-1",
+    "zone": "Kaneshie",
+    "riskLevel": "high",
+    "shelterId": "sh-2",
+    "shelterName": "Kaneshie Community Centre",
+    "steps": [
+      "From Kaneshie Market, head north on Kaneshie-Odorkor Highway",
+      "Avoid the underpass near the lorry station, known flood point",
+      "Turn right onto First Light Rd",
+      "Kaneshie Community Centre is 400m ahead on the left"
+    ],
+    "distanceKm": 1.2,
+    "etaMinutes": 15
+  },
+  {
+    "id": "rt-2",
+    "zone": "Circle",
+    "riskLevel": "moderate",
+    "shelterId": "sh-3",
+    "shelterName": "Circle Interchange Assembly Hall",
+    "steps": [
+      "From Circle roundabout, take the overpass, do not use the tunnel",
+      "Head toward Kwame Nkrumah Circle interchange",
+      "Assembly Hall entrance is on the eastern side"
+    ],
+    "distanceKm": 0.8,
+    "etaMinutes": 10
+  },
+  {
+    "id": "rt-3",
+    "zone": "Alajo",
+    "riskLevel": "high",
+    "shelterId": "sh-4",
+    "shelterName": "Alajo Presbyterian School",
+    "steps": [
+      "From Alajo Main Rd, move away from the Odaw river bank",
+      "Head east toward the Presbyterian church",
+      "School compound is behind the church, follow the marshals"
+    ],
+    "distanceKm": 0.6,
+    "etaMinutes": 8
+  },
+  {
+    "id": "rt-4",
+    "zone": "Osu",
+    "riskLevel": "low",
+    "shelterId": "sh-1",
+    "shelterName": "Accra Sports Stadium",
+    "steps": [
+      "From Oxford St, head south toward Barnes Rd",
+      "Stadium gates open for shelter on the north entrance"
+    ],
+    "distanceKm": 1.5,
+    "etaMinutes": 18
+  }
+]

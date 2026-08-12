@@ -1,0 +1,45 @@
+{
+  "live": {
+    "id": "live-1",
+    "severity": "critical",
+    "title": "Evacuate now!",
+    "message": "Sector 4 drain, Odaw River Basin, is at 92% capacity and rising fast. Move to higher ground immediately.",
+    "sirenActive": true,
+    "sirenNote": "A Ga-language voice alert is also playing through on-site speakers and stakeholder calls.",
+    "shelter": { "name": "Odawna Community Hall", "etaMin": 6 }
+  },
+  "feed": [
+    {
+      "id": "a-1",
+      "category": "emergency",
+      "title": "New module: Building your evacuation plan",
+      "message": "Two minutes · learn what makes a plan usable in a real emergency.",
+      "timestamp": "2026-08-10T18:40:00Z",
+      "acknowledged": false
+    },
+    {
+      "id": "a-2",
+      "category": "routine",
+      "title": "Community cleanup this Saturday",
+      "message": "Odawna neighbourhood drain clearance, 7 AM at the market junction.",
+      "timestamp": "2026-08-04T09:12:00Z",
+      "acknowledged": false
+    },
+    {
+      "id": "a-3",
+      "category": "routine",
+      "title": "Your drain report was approved",
+      "message": "Kaneshie Market report cleared by the neighbourhood team. +35 Eco-Tokens.",
+      "timestamp": "2026-08-03T11:20:00Z",
+      "acknowledged": true
+    },
+    {
+      "id": "a-4",
+      "category": "emergency",
+      "title": "Flood risk elevated in Accra Central",
+      "message": "Rainfall forecast rising through the weekend, review your emergency plan.",
+      "timestamp": "2026-08-02T07:05:00Z",
+      "acknowledged": true
+    }
+  ]
+}

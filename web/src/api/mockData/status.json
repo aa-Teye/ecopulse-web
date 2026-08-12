@@ -1,0 +1,10 @@
+{
+  "summary": { "safe": 214, "evacuating": 12, "needHelp": 3 },
+  "updates": [
+    { "id": "st-1", "name": "Adwoa B.", "district": "Odawna", "status": "safe", "note": "Water hasn't reached our street.", "timestamp": "2026-08-11T09:40:00Z" },
+    { "id": "st-2", "name": "Kwame T.", "district": "Alajo", "status": "need_help", "note": "Water at the doorstep, ground floor flooded.", "timestamp": "2026-08-11T09:32:00Z" },
+    { "id": "st-3", "name": "Efua N.", "district": "Kaneshie", "status": "evacuating", "note": "Heading to the community centre now.", "timestamp": "2026-08-11T09:15:00Z" },
+    { "id": "st-4", "name": "Yaw O.", "district": "Circle", "status": "safe", "note": null, "timestamp": "2026-08-11T08:58:00Z" },
+    { "id": "st-5", "name": "Abena K.", "district": "Ashaiman", "status": "safe", "note": "All clear here.", "timestamp": "2026-08-11T08:40:00Z" }
+  ]
+}

@@ -39,19 +39,19 @@ export default function Shelters() {
   }, [shelters, coords]);
 
   return (
-    <div className="section-pad py-5 sm:py-7 lg:py-10 space-y-5 sm:space-y-6 w-full">
-      <div className="border-b border-hairline pb-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+    <div className="section-pad py-4 sm:py-5 lg:py-7 space-y-4 sm:space-y-5 w-full">
+      <div className="border-b border-hairline pb-3 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
           <div className="eyebrow mb-1">SHELTER LOCATOR</div>
-          <h1 className="text-xl sm:text-3xl lg:text-4xl">Nearby Evacuation Shelters</h1>
-          <p className="text-body text-xs sm:text-sm mt-1">
-            Verified shelter sites across Accra, sorted by distance when location is shared.
+          <h1 className="text-lg sm:text-xl lg:text-2xl">Nearby Evacuation Shelters</h1>
+          <p className="text-body text-xs mt-1">
+            Verified shelter sites across Ghana, sorted by distance when location is shared.
           </p>
         </div>
         <Button
           variant="secondary"
           onClick={locate}
-          className="!text-xs !py-2 !px-4 gap-1.5 shrink-0"
+          className="!text-xs !py-2 !px-4 gap-1.5 shrink-0 w-full sm:w-auto justify-center"
         >
           <LocateFixed size={14} />
           {status === "locating" ? "Locating…" : coords ? "Update my location" : "Use my location"}

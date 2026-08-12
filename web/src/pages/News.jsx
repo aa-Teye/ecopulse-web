@@ -54,15 +54,15 @@ export default function News() {
         </p>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-        <SegmentedControl value={category} onChange={setCategory} options={CATEGORIES} />
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <SegmentedControl value={category} onChange={setCategory} options={CATEGORIES} className="w-full sm:w-auto" />
+        <div className="relative w-full sm:w-72">
           <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-body/50" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search news…"
-            className="w-full rounded-full border border-hairline bg-white pl-9 pr-4 py-2.5 text-sm text-forest placeholder:text-body/50 focus:outline-none focus:ring-2 focus:ring-forest/20"
+            className="w-full rounded-full border border-hairline bg-white pl-9 pr-4 py-2 text-xs sm:text-sm text-forest placeholder:text-body/50 focus:outline-none focus:ring-2 focus:ring-forest/20"
           />
         </div>
       </div>

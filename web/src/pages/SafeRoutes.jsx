@@ -29,11 +29,11 @@ export default function SafeRoutes() {
   const shelter = shelters?.find((s) => s.id === current?.shelterId);
 
   return (
-    <div className="section-pad py-5 sm:py-7 lg:py-10 space-y-5 sm:space-y-6 w-full">
-      <div className="border-b border-hairline pb-4">
+    <div className="section-pad py-4 sm:py-5 lg:py-7 space-y-4 sm:space-y-5 w-full">
+      <div className="border-b border-hairline pb-3">
         <div className="eyebrow mb-1">SAFE ROUTES</div>
-        <h1 className="text-xl sm:text-3xl lg:text-4xl">Evacuation Paths</h1>
-        <p className="text-body text-xs sm:text-sm mt-1">
+        <h1 className="text-lg sm:text-xl lg:text-2xl">Evacuation Paths</h1>
+        <p className="text-body text-xs mt-1">
           Recommended routes to the nearest shelter, avoiding known flood points.
         </p>
       </div>
@@ -41,7 +41,7 @@ export default function SafeRoutes() {
       {!routes ? (
         <LoadingSpinner label="Loading routes…" />
       ) : (
-        <div className="grid md:grid-cols-12 gap-5 sm:gap-6">
+        <div className="grid md:grid-cols-12 gap-4 sm:gap-5">
           {/* Zone selector */}
           <div className="md:col-span-4 space-y-3">
             <div className="eyebrow mb-1">SELECT YOUR ZONE</div>

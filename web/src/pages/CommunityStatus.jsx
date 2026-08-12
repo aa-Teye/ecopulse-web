@@ -41,34 +41,34 @@ export default function CommunityStatus() {
   }
 
   return (
-    <div className="section-pad py-5 sm:py-7 lg:py-10 space-y-5 sm:space-y-6 w-full">
-      <div className="border-b border-hairline pb-4">
+    <div className="section-pad py-4 sm:py-5 lg:py-7 space-y-4 sm:space-y-5 w-full">
+      <div className="border-b border-hairline pb-3">
         <div className="eyebrow mb-1">COMMUNITY STATUS</div>
-        <h1 className="text-xl sm:text-3xl lg:text-4xl">Check In With Your Neighbours</h1>
-        <p className="text-body text-xs sm:text-sm mt-1">
+        <h1 className="text-lg sm:text-xl lg:text-2xl">Check In With Your Neighbours</h1>
+        <p className="text-body text-xs mt-1">
           Share your status during an active flood event, visible to your neighbourhood and responders.
         </p>
       </div>
 
       {/* Set my status */}
-      <Card className="!p-5 sm:!p-6 space-y-4">
+      <Card className="!p-3.5 sm:!p-5 space-y-3 sm:space-y-4">
         <div className="eyebrow">SET YOUR STATUS</div>
-        <div className="grid sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {OPTIONS.map(({ value, label, Icon, tone }) => (
             <button
               key={value}
               onClick={() => handleSetStatus(value)}
               disabled={pending !== null}
-              className={`rounded-2xl border p-4 flex flex-col items-center gap-2 transition-all disabled:opacity-50 ${
+              className={`rounded-2xl border p-2.5 sm:p-4 flex flex-col items-center gap-1.5 transition-all disabled:opacity-50 ${
                 myStatus === value ? "!border-forest !border-2" : tone
               }`}
             >
               {pending === value ? (
-                <LoadingSpinner size={18} label="" />
+                <LoadingSpinner size={16} label="" />
               ) : (
-                <Icon size={22} strokeWidth={2} />
+                <Icon size={18} strokeWidth={2} />
               )}
-              <span className="text-xs sm:text-sm font-bold">{label}</span>
+              <span className="text-[11px] sm:text-sm font-bold truncate w-full text-center">{label}</span>
             </button>
           ))}
         </div>

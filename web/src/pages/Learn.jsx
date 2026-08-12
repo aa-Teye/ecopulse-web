@@ -165,16 +165,16 @@ function LearnTab({ lessons, onOpen }) {
 function LeaderboardTab({ board, onInfo }) {
   return (
     <div className="space-y-3 sm:space-y-4">
-      <Card className="!bg-gold-soft !border-0 flex items-center justify-between !p-4 sm:!p-5">
+      <Card className="!bg-gold-soft !border-0 flex items-center justify-between !p-3.5 sm:!p-5">
         <div>
           <p className="text-[10px] font-mono text-body uppercase tracking-wider">Your rank</p>
-          <p className="font-display font-extrabold text-xl sm:text-2xl text-forest mt-0.5">
+          <p className="font-display font-extrabold text-lg sm:text-2xl text-forest mt-0.5">
             #{board.youRank} · <span className="font-mono text-sim-text">{board.youPoints} pts</span>
           </p>
         </div>
         <button
           onClick={onInfo}
-          className="text-xs font-bold text-forest underline underline-offset-2 hover:text-forest-light"
+          className="text-xs font-bold text-forest underline underline-offset-2 hover:text-forest-light shrink-0"
         >
           How to earn points
         </button>
@@ -182,15 +182,15 @@ function LeaderboardTab({ board, onInfo }) {
 
       <Card className="divide-y divide-hairline !p-3 sm:!p-4">
         {board.rankings.map((row) => (
-          <div key={row.rank} className="py-2.5 first:pt-0 last:pb-0 flex items-center gap-3">
+          <div key={row.rank} className="py-2.5 first:pt-0 last:pb-0 flex items-center gap-2 sm:gap-3">
             <span className="font-mono font-bold text-xs text-body/70 w-5 text-center shrink-0">
               {String(row.rank).padStart(2, '0')}
             </span>
-            <div className="w-8 h-8 rounded-full bg-mint flex items-center justify-center shrink-0 text-forest border border-hairline font-display font-bold text-xs">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-mint flex items-center justify-center shrink-0 text-forest border border-hairline font-display font-bold text-xs">
               {row.name.charAt(0)}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-display font-bold text-forest text-xs sm:text-sm">{row.name}</p>
+              <p className="font-display font-bold text-forest text-xs sm:text-sm truncate">{row.name}</p>
               <p className="text-[10px] text-body truncate mt-0.5">
                 {row.district}{row.badge ? ` · ${row.badge}` : ''}
               </p>

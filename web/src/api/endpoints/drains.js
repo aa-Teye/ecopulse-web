@@ -15,6 +15,18 @@ export async function submitDrainReport(report) {
     await new Promise((r) => setTimeout(r, 600))
     return { id: `d-${Math.floor(Math.random() * 9000 + 1000)}`, status: 'pending', ...report }
   }
-  const { data } = await apiClient.post('/drains/report', report)
+  const form = new FormData()
+  form.append('location', report.location)
+  form.append('description', report.description)
+  if (report.coords) {
+    form.append('lat', report.coords.lat)
+    form.append('lng', report.coords.lng)
+  }
+  if (report.photo) {
+    form.append('photo', report.photo)
+  }
+  const { data } = await apiClient.post('/drains/report', form, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
   return data
 }

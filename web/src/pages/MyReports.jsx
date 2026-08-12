@@ -137,6 +137,13 @@ export default function MyReports() {
         {filtered.map((r) => (
           <Card key={r.id} className="!p-4 flex flex-col justify-between h-full">
             <div className="space-y-2">
+              {r.photoUrl && (
+                <img
+                  src={r.photoUrl}
+                  alt={`Drain report at ${r.location}`}
+                  className="w-full h-28 object-cover rounded-xl"
+                />
+              )}
               <div className="flex items-start justify-between gap-2">
                 <p className="font-display font-bold text-forest text-xs sm:text-sm truncate">{r.location}</p>
                 <StatusChip status={r.status} />

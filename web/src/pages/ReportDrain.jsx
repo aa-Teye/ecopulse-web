@@ -59,7 +59,7 @@ export default function ReportDrain() {
           locationText || `${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)}`,
         coords,
         description,
-        hasPhoto: Boolean(photo),
+        photo,
       });
       setSubmitted(created);
     } catch (err) {

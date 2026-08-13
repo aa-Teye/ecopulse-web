@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
-import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2 } from "lucide-react";
+import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass } from "lucide-react";
 import Home from "./pages/Home.jsx";
 import ReportDrain from "./pages/ReportDrain.jsx";
 import ReportGreenAct from "./pages/ReportGreenAct.jsx";
@@ -47,6 +47,7 @@ const tabClass = ({ isActive }) =>
 function Header() {
   const location = useLocation();
   const authed = isAuthenticated();
+  const startTour = useTourStore((s) => s.start);
   const [mobileOpen, setMobileOpen] = useState(false);
   const onAuthPage =
     location.pathname === "/sign-in" || location.pathname === "/sign-up";
@@ -123,6 +124,16 @@ function Header() {
           <NavLink to="/profile" onClick={() => setMobileOpen(false)} className="text-[15px] font-bold text-forest py-1 flex items-center gap-2">
             <User size={16} /> My Profile
           </NavLink>
+          <button
+            type="button"
+            onClick={() => {
+              setMobileOpen(false);
+              startTour();
+            }}
+            className="text-[15px] font-medium text-forest/80 py-1 flex items-center gap-2 text-left"
+          >
+            <Compass size={16} /> Take a tour / guide
+          </button>
           <a
             href={DASHBOARD_URL}
             target="_blank"
@@ -190,6 +201,7 @@ function BottomTabBar() {
 
 function UtilityBar() {
   const location = useLocation();
+  const startTour = useTourStore((s) => s.start);
   const onAuthPage =
     location.pathname === "/sign-in" || location.pathname === "/sign-up";
 
@@ -218,6 +230,13 @@ function UtilityBar() {
               <Icon size={13} /> {label}
             </NavLink>
           ))}
+          <button
+            type="button"
+            onClick={startTour}
+            className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold whitespace-nowrap text-forest/60 hover:text-forest transition-colors shrink-0"
+          >
+            <Compass size={13} /> Take a tour
+          </button>
         </div>
 
         <a

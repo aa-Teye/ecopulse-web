@@ -20,7 +20,11 @@ export default function SignIn() {
       await signIn({ email, password })
       navigate('/')
     } catch (err) {
-      setError(err.message || 'Could not sign in, check your details and try again.')
+      if (err.code === 'ECONNABORTED') {
+        setError("The server is waking up (free hosting sleeps when idle) — this can take up to a minute. Please try again.")
+      } else {
+        setError(err.response?.data?.detail || err.message || 'Could not sign in, check your details and try again.')
+      }
     } finally {
       setSubmitting(false)
     }

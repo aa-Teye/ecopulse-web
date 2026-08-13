@@ -121,7 +121,10 @@ export default function SignUp() {
                 onChange={(e) => setAgreed(e.target.checked)}
                 className="rounded border-hairline w-4 h-4 text-forest"
               />
-              I agree with the terms and conditions
+              I agree with the{" "}
+              <Link to="/terms" target="_blank" className="underline underline-offset-2 hover:text-forest-light" onClick={(e) => e.stopPropagation()}>
+                terms and conditions
+              </Link>
             </label>
 
             {error && (

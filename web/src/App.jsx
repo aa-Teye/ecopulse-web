@@ -17,6 +17,7 @@ import Learn from "./pages/Learn.jsx";
 import Profile from "./pages/Profile.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
+import Terms from "./pages/Terms.jsx";
 import News from "./pages/News.jsx";
 import Shelters from "./pages/Shelters.jsx";
 import SafeRoutes from "./pages/SafeRoutes.jsx";
@@ -55,7 +56,7 @@ function Header() {
   const startTour = useTourStore((s) => s.start);
   const [mobileOpen, setMobileOpen] = useState(false);
   const onAuthPage =
-    location.pathname === "/sign-in" || location.pathname === "/sign-up";
+    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms";
 
   if (onAuthPage) return null;
 
@@ -171,7 +172,7 @@ function Header() {
 function BottomTabBar() {
   const location = useLocation();
   const onAuthPage =
-    location.pathname === "/sign-in" || location.pathname === "/sign-up";
+    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms";
 
   if (onAuthPage) return null;
 
@@ -209,7 +210,7 @@ function UtilityBar() {
   const location = useLocation();
   const startTour = useTourStore((s) => s.start);
   const onAuthPage =
-    location.pathname === "/sign-in" || location.pathname === "/sign-up";
+    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms";
 
   if (onAuthPage) return null;
 
@@ -306,6 +307,7 @@ export default function App() {
           <Route path="/leaderboard" element={<Learn initialTab="leaderboard" />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="/shelters" element={<Shelters />} />
           <Route path="/emergency-contacts" element={<EmergencyContacts />} />
           <Route path="/profile" element={<Profile />} />

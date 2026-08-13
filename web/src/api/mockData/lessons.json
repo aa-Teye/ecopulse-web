@@ -1,34 +1,56 @@
 [
   {
-    "id": "l-1",
+    "id": 1,
     "title": "Flooding in urban areas",
-    "minutes": 2,
+    "minutes": 4,
     "points": 20,
     "summary": "Learn why choked drains, not heavy rain, cause most flood damage in Accra, and the three warning signs a drain near you is close to overflowing.",
+    "content": "Accra doesn't flood because it rains more than other cities — it floods because water has nowhere to go once it lands. Roads, roofs, and packed earth shed rainwater instead of absorbing it, and that runoff is supposed to reach the sea through a network of drains and the Odaw channel. When those drains are choked with plastic sachets, silt, and dumped waste, even a moderate storm backs up fast.\n\nThree warning signs a drain near you is close to overflowing: water already pooling at its edges after only light rain, a smell of stagnant water even when it hasn't rained recently, and visible waste piled at the drain mouth or culvert entrance. Any one of these is worth a report — that's exactly what the drain-report feature is for.\n\nIt's not a problem unique to Accra. The video below looks at how the Netherlands — much of which sits below sea level — engineered its way out of catastrophic flooding after a 1953 disaster killed nearly 2,000 people. Accra's fix looks different (clearing drains, not storm barriers), but the underlying lesson is the same: flood risk is manageable when the infrastructure is maintained, and dangerous when it's ignored.",
+    "videoUrl": "https://www.youtube.com/embed/25LW_PG2ZuI",
+    "resources": [
+      { "title": "TED-Ed: Why isn't the Netherlands underwater?", "url": "https://ed.ted.com/lessons/why-isn-t-the-netherlands-underwater-stefan-al" },
+      { "title": "Wikipedia: Urban flooding", "url": "https://en.wikipedia.org/wiki/Urban_flooding" }
+    ],
     "completed": false
   },
   {
-    "id": "l-2",
+    "id": 2,
     "title": "Waste and drainage",
     "minutes": 3,
     "points": 20,
     "summary": "How household waste ends up in the drainage system, and the small habits that keep it out.",
+    "content": "Most of what blocks a drain didn't fall from the sky with the rain — it was dumped there, or washed in from a dump site nearby. Plastic sachet water bags are the biggest single culprit in Accra: light enough to wash into a gutter with the first rain, and slow enough to break down that they can sit in a drain for years, catching silt and more waste behind them until the channel is effectively sealed.\n\nGhana's National Solid Waste Management Strategy identifies covering open drains and closing uncontrolled dump sites as two of its core long-term goals — but until that infrastructure exists everywhere, the biggest lever residents have is simply not treating open drains and empty lots as bins. Small habits — bagging sachet waste instead of dropping it, reporting a blocked drain instead of walking past it, joining a community clearance day — add up faster than most people expect: EcoPulse's own reports have already logged neighbourhoods clearing dozens of blockages in a single month.",
+    "videoUrl": "https://www.youtube.com/embed/TaxSqlpGtfk",
+    "resources": [
+      { "title": "Ghana National Solid Waste Management Strategy (2020)", "url": "https://ghanawasteplatform.org/wp-content/uploads/2021/11/National-Solid-Waste-Management-2020.pdf" },
+      { "title": "Tackling plastic waste: Ghana's regulatory approach", "url": "https://thehighstreetjournal.com/tackling-plastic-waste-ghanas-comprehensive-approach-to-environmental-protection-through-regulation/" }
+    ],
     "completed": false
   },
   {
-    "id": "l-3",
+    "id": 3,
     "title": "Reading a flood-risk score",
     "minutes": 5,
     "points": 20,
     "summary": "A short guide to what Wɔnɔ's daily score means, and what to do differently at LOW, Moderate, and High.",
+    "content": "Wɔnɔ's daily flood-risk score rolls up three things for your zone: recent and forecast rainfall, how full nearby drains and sensors are reading, and how many unresolved drain reports are open near you. The result is a single number that's meant to answer one practical question — how much should you change your plans today?\n\nAt LOW, normal routine is fine; it's still worth knowing where your nearest shelter is. At Moderate, avoid parking or storing valuables in known low-lying spots, and keep an eye on the app if rain picks up. At High, treat it as an active warning: avoid flood-prone routes entirely, and have your emergency plan (see the next lesson) ready to act on, not just saved.\n\nFlood-risk scoring isn't unique to EcoPulse — property-level tools like First Street's Flood Factor use a similar idea (elevation, rainfall history, proximity to water) to produce a single comparable score elsewhere in the world. The details differ, but the goal is the same: turning a lot of scattered data into one number you can actually act on.",
+    "resources": [
+      { "title": "First Street: How is my Flood Factor calculated?", "url": "https://help.firststreet.org/hc/en-us/articles/360047585694-How-is-my-Flood-Factor-calculated" }
+    ],
     "completed": false
   },
   {
-    "id": "l-4",
+    "id": 4,
     "title": "Building your evacuation plan",
-    "minutes": 2,
+    "minutes": 3,
     "points": 20,
     "summary": "What makes an emergency plan usable in the moment: dependents, mobility needs, and a shelter you can actually reach.",
+    "content": "A plan you have to think through during a flood is a plan that fails. The useful kind is decided in advance and just needs to be followed: who in your household needs help moving (children, elderly relatives, anyone with a mobility need), which shelter you're actually heading to, and a fallback if your first route is underwater.\n\nNADMO's own flood safety guidance is worth internalising: move to higher ground as soon as flooding starts rather than waiting to see how bad it gets, turn off electrical appliances and gas before leaving, never walk or drive through moving flood water (uncovered drains and displaced manholes are a real drowning risk even in shallow-looking water), and keep ID and essentials in a waterproof bag rather than searching for them during an evacuation.\n\nUse the Emergency Plan tab to save this once — household size, accessibility needs, an emergency contact, and your target shelter — so it's already answered when you need it, not something you're figuring out while water is rising.",
+    "videoUrl": "https://www.youtube.com/embed/Glc-1f4Ez00",
+    "resources": [
+      { "title": "NADMO: Flood safety tips", "url": "https://newsnowgh.com/flood-safety-tips-disaster-risk-reduction-by-nadmo/" },
+      { "title": "American Red Cross: Make a plan", "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/make-a-plan.html" }
+    ],
     "completed": false
   }
 ]

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Clock, CheckCircle2, Trophy, Crown, BookOpen } from 'lucide-react'
+import { Clock, CheckCircle2, Trophy, Crown, BookOpen, ExternalLink } from 'lucide-react'
 import Card from '../../../shared-components/Card/Card.jsx'
 import Button from '../../../shared-components/Button/Button.jsx'
 import LoadingSpinner from '../../../shared-components/LoadingSpinner/LoadingSpinner.jsx'
@@ -8,11 +8,13 @@ import Modal from '../../../shared-components/Modal/Modal.jsx'
 import RadarField from '../../../shared-components/RadarField/RadarField.jsx'
 import { fetchLessons, completeLesson, fetchLeaderboard } from '../api/endpoints/learn.js'
 
+// Keyed by lesson id — matches the live API's sequential integer ids
+// (seeded in this exact order) as well as the mock data's ids.
 const LESSON_COVERS = {
-  'l-1': '/assets/Frame 16 (2).png',
-  'l-2': '/assets/Frame 17 (1).png',
-  'l-3': '/assets/Frame 18 (1).png',
-  'l-4': '/assets/Frame 19 (1).png',
+  1: '/assets/Frame 16 (2).png',
+  2: '/assets/Frame 17 (1).png',
+  3: '/assets/Frame 18 (1).png',
+  4: '/assets/Frame 19 (1).png',
 }
 
 function ProgressRing({ done, total }) {
@@ -52,7 +54,45 @@ function LessonModal({ lesson, onClose, onComplete }) {
       )}
       <div className="eyebrow mb-1 font-semibold">{lesson.minutes} MIN LESSON</div>
       <h3 id="lesson-modal-title" className="text-xl sm:text-2xl font-bold mb-2 text-forest">{lesson.title}</h3>
-      <p className="text-xs sm:text-sm text-body mb-5 leading-relaxed">{lesson.summary}</p>
+      <p className="text-xs sm:text-sm text-body mb-4 leading-relaxed">{lesson.summary}</p>
+
+      {lesson.videoUrl && (
+        <div className="aspect-video rounded-xl overflow-hidden bg-mint mb-4">
+          <iframe
+            src={lesson.videoUrl}
+            title={lesson.title}
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      )}
+
+      {lesson.content && (
+        <div className="text-xs sm:text-sm text-body leading-relaxed mb-4 space-y-3 whitespace-pre-line">
+          {lesson.content}
+        </div>
+      )}
+
+      {lesson.resources?.length > 0 && (
+        <div className="mb-5">
+          <p className="font-display font-bold text-xs text-forest mb-2 uppercase tracking-wide">Go deeper</p>
+          <div className="space-y-1.5">
+            {lesson.resources.map((r) => (
+              <a
+                key={r.url}
+                href={r.url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1.5 text-xs font-semibold text-forest hover:text-forest-light underline underline-offset-2"
+              >
+                <ExternalLink size={12} className="shrink-0" /> {r.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-wrap gap-2.5">
         {lesson.completed ? (
           <>

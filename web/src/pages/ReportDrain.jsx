@@ -106,7 +106,7 @@ export default function ReportDrain({ onViewReports }) {
           </p>
         </div>
         <p className="text-body text-xs sm:text-sm leading-relaxed max-w-md mx-auto">
-          A neighborhood admin and local response team will review it shortly. You'll earn Eco-Tokens once it's verified.
+          Submitted successfully — a review will be sent to you later. You'll earn Eco-Tokens once it's verified.
         </p>
         <div className="flex flex-wrap gap-3 justify-center pt-3">
           <Button variant="secondary" className="!px-5 !py-2.5 text-xs sm:text-sm" onClick={onViewReports}>

@@ -11,6 +11,8 @@ import {
   LANGUAGES,
 } from "../api/endpoints/profile.js";
 import { signOut, isAuthenticated } from "../api/endpoints/auth.js";
+import { setSiteLanguage } from "../lib/googleTranslate.js";
+import { useTourStore } from "../store/useTourStore.js";
 
 function initials(name) {
   return name
@@ -27,6 +29,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [savingLang, setSavingLang] = useState(false);
+  const startTour = useTourStore((s) => s.start);
 
   useEffect(() => {
     fetchProfile().then(setProfile);
@@ -37,6 +40,7 @@ export default function Profile() {
     try {
       await setLanguage(code);
       setProfile((p) => ({ ...p, language: code }));
+      setSiteLanguage(code);
     } finally {
       setSavingLang(false);
     }
@@ -111,6 +115,17 @@ export default function Profile() {
               <p className="font-display font-extrabold text-xl text-forest mt-0.5">#{rank}</p>
             </div>
           </Card>
+
+          <Button
+            variant="ghost"
+            className="w-full justify-center gap-2 py-3 text-xs sm:text-sm font-semibold"
+            onClick={() => {
+              navigate("/");
+              startTour();
+            }}
+          >
+            Replay the quick tour
+          </Button>
 
           <Button variant="ghost" className="w-full justify-center gap-2 py-3 text-xs sm:text-sm font-semibold" onClick={handleSignOut}>
             <LogOut size={16} /> Sign out of account

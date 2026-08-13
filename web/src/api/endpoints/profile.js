@@ -3,9 +3,9 @@ import mockLeaderboard from "../mockData/leaderboard.json";
 
 export const LANGUAGES = [
   { code: "en", label: "English" },
+  { code: "fr", label: "French" },
   { code: "tw", label: "Twi" },
   { code: "ga", label: "Ga" },
-  { code: "ha", label: "Hausa" },
 ];
 
 const BADGES = [

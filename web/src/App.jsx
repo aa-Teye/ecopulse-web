@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2 } from "lucide-react";
 import Home from "./pages/Home.jsx";
@@ -16,6 +16,8 @@ import Shelters from "./pages/Shelters.jsx";
 import SafeRoutes from "./pages/SafeRoutes.jsx";
 import CommunityStatus from "./pages/CommunityStatus.jsx";
 import Placeholder from "./pages/Placeholder.jsx";
+import Tour from "./components/Tour.jsx";
+import { useTourStore } from "./store/useTourStore.js";
 import { isAuthenticated } from "./api/endpoints/auth.js";
 
 // Set once Ishaque's admin dashboard is deployed (see .env.example).
@@ -248,11 +250,18 @@ function PageBackground() {
 }
 
 export default function App() {
+  const maybeAutoStart = useTourStore((s) => s.maybeAutoStart);
+
+  useEffect(() => {
+    maybeAutoStart();
+  }, [maybeAutoStart]);
+
   return (
     <div className="min-h-screen bg-mint/30 flex flex-col font-sans antialiased text-forest selection:bg-gold selection:text-forest relative">
       <PageBackground />
       <Header />
       <UtilityBar />
+      <Tour />
 
       <main className="flex-1 pb-24 md:pb-8 relative z-10">
         <Routes>

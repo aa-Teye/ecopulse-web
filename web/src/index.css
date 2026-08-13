@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Google Translate: driven programmatically from the language buttons in
+   Profile.jsx (see src/lib/googleTranslate.js) — hide its own banner/widget
+   chrome entirely so it doesn't intrude on the design. */
+#google_translate_element,
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
 /* ═══════════════════════════════════════════════
    BASE LAYER — Full-Width Web Canvas
    ═══════════════════════════════════════════════ */

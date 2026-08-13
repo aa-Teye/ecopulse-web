@@ -15,6 +15,7 @@ import EmergencyContacts from "./pages/EmergencyContacts.jsx";
 import Learn from "./pages/Learn.jsx";
 import Profile from "./pages/Profile.jsx";
 import SignIn from "./pages/SignIn.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Terms from "./pages/Terms.jsx";
 import News from "./pages/News.jsx";
@@ -56,7 +57,7 @@ function Header() {
   const startTour = useTourStore((s) => s.start);
   const [mobileOpen, setMobileOpen] = useState(false);
   const onAuthPage =
-    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms";
+    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms" || location.pathname === "/forgot-password";
 
   if (onAuthPage) return null;
 
@@ -197,7 +198,7 @@ function Header() {
 function BottomTabBar() {
   const location = useLocation();
   const onAuthPage =
-    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms";
+    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms" || location.pathname === "/forgot-password";
 
   if (onAuthPage) return null;
 
@@ -235,7 +236,7 @@ function UtilityBar() {
   const location = useLocation();
   const startTour = useTourStore((s) => s.start);
   const onAuthPage =
-    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms";
+    location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms" || location.pathname === "/forgot-password";
 
   if (onAuthPage) return null;
 
@@ -331,6 +332,7 @@ export default function App() {
           <Route path="/learn" element={<Learn />} />
           <Route path="/leaderboard" element={<Learn initialTab="leaderboard" />} />
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/shelters" element={<Shelters />} />

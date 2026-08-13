@@ -108,7 +108,7 @@ export default function SignIn() {
                 />
                 Remember me
               </label>
-              <Link to="#" className="text-forest font-semibold underline underline-offset-2 hover:text-forest-light">Forgot Password?</Link>
+              <Link to="/forgot-password" className="text-forest font-semibold underline underline-offset-2 hover:text-forest-light">Forgot Password?</Link>
             </div>
 
             {error && (

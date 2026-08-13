@@ -44,6 +44,27 @@ export async function signUp({ fullName, password, username, district, phone }) 
   return data;
 }
 
+export async function forgotPassword(identifier) {
+  if (USE_MOCK) {
+    await new Promise((r) => setTimeout(r, 400));
+    const stored = localStorage.getItem("ecopulse_user");
+    const user = stored ? JSON.parse(stored) : null;
+    const found = !!user && [user.email, user.phone, user.username].includes(identifier);
+    return { found };
+  }
+  const { data } = await apiClient.post("/auth/forgot-password", { identifier });
+  return data;
+}
+
+export async function resetPassword(identifier, newPassword) {
+  if (USE_MOCK) {
+    await new Promise((r) => setTimeout(r, 400));
+    return { found: true };
+  }
+  const { data } = await apiClient.post("/auth/reset-password", { identifier, newPassword });
+  return data;
+}
+
 export function signOut() {
   localStorage.removeItem("ecopulse_token");
   localStorage.removeItem("ecopulse_user");

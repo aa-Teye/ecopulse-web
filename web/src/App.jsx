@@ -4,8 +4,11 @@ import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, Layo
 import Home from "./pages/Home.jsx";
 import ReportDrain from "./pages/ReportDrain.jsx";
 import ReportGreenAct from "./pages/ReportGreenAct.jsx";
+import Games from "./pages/Games.jsx";
 import PlayQuiz from "./pages/PlayQuiz.jsx";
 import PlayTapDrains from "./pages/PlayTapDrains.jsx";
+import PlaySortWaste from "./pages/PlaySortWaste.jsx";
+import PlayTrueFalse from "./pages/PlayTrueFalse.jsx";
 import MyReports from "./pages/MyReports.jsx";
 import Alerts from "./pages/Alerts.jsx";
 import EmergencyPlan from "./pages/EmergencyPlan.jsx";
@@ -210,7 +213,7 @@ function UtilityBar() {
   if (onAuthPage) return null;
 
   const links = [
-    { to: "/play/quiz", label: "Play", Icon: Gamepad2 },
+    { to: "/play", label: "Play", Icon: Gamepad2 },
     { to: "/news", label: "News", Icon: Newspaper },
     { to: "/shelters", label: "Shelters", Icon: MapPinned },
     { to: "/safe-routes", label: "Safe Routes", Icon: RouteIcon },
@@ -289,8 +292,12 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/report-drain" element={<ReportDrain />} />
           <Route path="/report-green-act" element={<ReportGreenAct />} />
+          <Route path="/play" element={<Games />} />
           <Route path="/play/quiz" element={<PlayQuiz />} />
+          <Route path="/play/quiz/:topic" element={<PlayQuiz />} />
           <Route path="/play/tap-drains" element={<PlayTapDrains />} />
+          <Route path="/play/sort-waste" element={<PlaySortWaste />} />
+          <Route path="/play/true-false" element={<PlayTrueFalse />} />
           <Route path="/my-reports" element={<MyReports />} />
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/emergency-plan" element={<EmergencyPlan />} />

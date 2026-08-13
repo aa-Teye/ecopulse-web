@@ -28,7 +28,7 @@ function timeAgo(iso) {
 const quickActions = [
   { to: '/report-drain', label: 'Report a drain', hint: 'Photo + location', icon: Droplets, color: 'bg-emerald/10 text-emerald border-emerald/20' },
   { to: '/report-green-act', label: 'Log a green act', hint: 'Instant Eco-Tokens', icon: Sprout, color: 'bg-live-bg text-live-text border-emerald/30' },
-  { to: '/play/quiz', label: 'Play & earn', hint: 'Quiz + drain game', icon: Gamepad2, color: 'bg-gold-soft text-sim-text border-gold/30' },
+  { to: '/play', label: 'Play & earn', hint: '10 climate games', icon: Gamepad2, color: 'bg-gold-soft text-sim-text border-gold/30' },
   { to: '/learn', label: 'Climate Literacy', hint: 'Lessons + leaderboard', icon: Trophy, color: 'bg-forest/10 text-forest border-forest/20' },
   { to: '/emergency-plan', label: 'Emergency plan', hint: 'Household + shelter', icon: Zap, color: 'bg-gold-soft text-sim-text border-gold/30' },
   { to: '/alerts', label: 'View alerts', hint: 'Live notifications', icon: TrendingUp, color: 'bg-coral/10 text-coral border-coral/20' },

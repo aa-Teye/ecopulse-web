@@ -1,45 +1,17 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Check, X, Award, Brain } from "lucide-react";
 import Card from "../../../shared-components/Card/Card.jsx";
 import Button from "../../../shared-components/Button/Button.jsx";
 import { completeGame } from "../api/endpoints/games.js";
-
-const QUESTIONS = [
-  {
-    q: "What usually causes urban flooding in cities like Accra?",
-    options: ["Heavy rainfall alone", "Blocked or clogged drains", "Ocean tides", "Earthquakes"],
-    answer: 1,
-  },
-  {
-    q: "You see rising floodwater near your home. What should you do first?",
-    options: ["Take photos for social media", "Move to higher ground and avoid moving water", "Try to drive through it", "Wait and see what happens"],
-    answer: 1,
-  },
-  {
-    q: "True or false: even shallow, fast-moving floodwater can knock an adult off their feet.",
-    options: ["True", "False"],
-    answer: 0,
-  },
-  {
-    q: "Why do tree planting and drain cleanups help prevent flooding?",
-    options: ["They look nice", "They help water absorb and flow instead of pooling", "They stop rain", "They increase temperature"],
-    answer: 1,
-  },
-  {
-    q: "What's the best way to prepare your household for flood season?",
-    options: ["Do nothing, floods are unpredictable", "Build an emergency plan with a shelter and route", "Move all valuables outside", "Ignore alerts"],
-    answer: 1,
-  },
-  {
-    q: "You spot a blocked drain near your home. What should you do?",
-    options: ["Ignore it", "Report it through Wɔnɔ so responders can act", "Try to clear it yourself in heavy rain", "Only post about it on social media"],
-    answer: 1,
-  },
-];
+import { QUIZ_TOPICS } from "../lib/quizTopics.js";
 
 export default function PlayQuiz() {
   const navigate = useNavigate();
+  const { topic = "flood" } = useParams();
+  const topicData = QUIZ_TOPICS[topic] ?? QUIZ_TOPICS.flood;
+  const QUESTIONS = topicData.questions;
+
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -101,8 +73,8 @@ export default function PlayQuiz() {
           </p>
         </div>
         <div className="flex flex-wrap gap-3 justify-center pt-3">
-          <Button variant="secondary" className="!px-5 !py-2.5 text-xs sm:text-sm" onClick={() => navigate("/")}>
-            Back home
+          <Button variant="secondary" className="!px-5 !py-2.5 text-xs sm:text-sm" onClick={() => navigate("/play")}>
+            More games
           </Button>
           <Button className="!px-5 !py-2.5 text-xs sm:text-sm" onClick={handleRestart}>
             Play again
@@ -116,13 +88,13 @@ export default function PlayQuiz() {
     <div className="section-pad py-4 sm:py-5 lg:py-7 space-y-4 sm:space-y-5 w-full max-w-2xl mx-auto">
       <div className="flex items-center justify-between border-b border-hairline pb-3">
         <div>
-          <div className="eyebrow mb-1">CLIMATE QUIZ</div>
+          <div className="eyebrow mb-1">{topicData.title.toUpperCase()} QUIZ</div>
           <h1 className="text-lg sm:text-xl lg:text-2xl flex items-center gap-2">
             <Brain size={20} className="text-forest" /> Question {index + 1} of {QUESTIONS.length}
           </h1>
         </div>
-        <Link to="/play/tap-drains">
-          <Button variant="ghost" className="shrink-0 !text-xs !px-4 !py-2">Try the drain game</Button>
+        <Link to="/play">
+          <Button variant="ghost" className="shrink-0 !text-xs !px-4 !py-2">All games</Button>
         </Link>
       </div>
 

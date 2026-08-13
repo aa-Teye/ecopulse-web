@@ -128,8 +128,8 @@ export default function PlayTapDrains() {
             <Droplets size={20} className="text-forest" /> Clear the drains before they overflow
           </h1>
         </div>
-        <Link to="/play/quiz">
-          <Button variant="ghost" className="shrink-0 !text-xs !px-4 !py-2">Try the quiz instead</Button>
+        <Link to="/play">
+          <Button variant="ghost" className="shrink-0 !text-xs !px-4 !py-2">All games</Button>
         </Link>
       </div>
 

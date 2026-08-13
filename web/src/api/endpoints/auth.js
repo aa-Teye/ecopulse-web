@@ -21,23 +21,21 @@ export async function signIn({ email, password }) {
   return data;
 }
 
-export async function signUp({ fullName, password, username, district, phone }) {
+export async function signUp({ username, email, password }) {
   if (USE_MOCK) {
     await new Promise((r) => setTimeout(r, 600));
-    if (!fullName || !password || !phone)
-      throw new Error("Fill in your name, password, and number.");
-    const token = `mock.${btoa(fullName)}.token`;
-    const user = { fullName, username, district, phone, email: null };
+    if (!username || !email || !password)
+      throw new Error("Fill in your username, email, and password.");
+    const token = `mock.${btoa(username)}.token`;
+    const user = { fullName: username, username, email, district: null, phone: null };
     localStorage.setItem("ecopulse_token", token);
     localStorage.setItem("ecopulse_user", JSON.stringify(user));
     return { token, user };
   }
   const { data } = await apiClient.post("/auth/register", {
-    fullName,
-    password,
     username,
-    district,
-    phone,
+    email,
+    password,
   });
   localStorage.setItem("ecopulse_token", data.token);
   localStorage.setItem("ecopulse_user", JSON.stringify(data.user));

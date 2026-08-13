@@ -7,12 +7,10 @@ import { useTourStore } from '../store/useTourStore.js'
 export default function SignUp() {
   const navigate = useNavigate()
   const startTour = useTourStore((s) => s.start)
-  const [fullName, setFullName] = useState('')
   const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [district, setDistrict] = useState('')
-  const [phone, setPhone] = useState('')
   const [agreed, setAgreed] = useState(false)
   const [error, setError] = useState(null)
   const [submitting, setSubmitting] = useState(false)
@@ -26,7 +24,7 @@ export default function SignUp() {
     setError(null)
     setSubmitting(true)
     try {
-      await signUp({ fullName, username, password, district, phone })
+      await signUp({ username, email, password })
       navigate('/')
       startTour()
     } catch (err) {
@@ -72,18 +70,6 @@ export default function SignUp() {
         <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-card-lg border border-hairline">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="signup-name" className="text-xs font-semibold text-forest uppercase tracking-wider block mb-1.5">Full name</label>
-              <input
-                id="signup-name"
-                type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Ama Annim"
-                className="input-base !py-3 !px-4"
-              />
-            </div>
-
-            <div>
               <label htmlFor="signup-username" className="text-xs font-semibold text-forest uppercase tracking-wider block mb-1.5">Username</label>
               <input
                 id="signup-username"
@@ -91,6 +77,18 @@ export default function SignUp() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="ama_annim"
+                className="input-base !py-3 !px-4"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="signup-email" className="text-xs font-semibold text-forest uppercase tracking-wider block mb-1.5">Email</label>
+              <input
+                id="signup-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="ama@example.com"
                 className="input-base !py-3 !px-4"
               />
             </div>
@@ -115,30 +113,6 @@ export default function SignUp() {
                   {showPassword ? 'Hide' : 'Show'}
                 </button>
               </div>
-            </div>
-
-            <div>
-              <label htmlFor="signup-district" className="text-xs font-semibold text-forest uppercase tracking-wider block mb-1.5">District</label>
-              <input
-                id="signup-district"
-                type="text"
-                value={district}
-                onChange={(e) => setDistrict(e.target.value)}
-                placeholder="e.g. Ga East, Adenta, Kpone-Katamanso"
-                className="input-base !py-3 !px-4"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="signup-phone" className="text-xs font-semibold text-forest uppercase tracking-wider block mb-1.5">Phone Number</label>
-              <input
-                id="signup-phone"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+233 54632456"
-                className="input-base !py-3 !px-4"
-              />
             </div>
 
             <label className="flex items-center gap-2 text-xs sm:text-sm text-forest cursor-pointer select-none font-medium pt-1">

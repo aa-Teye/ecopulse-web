@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Routes, Route, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass, LogOut } from "lucide-react";
 import Home from "./pages/Home.jsx";
@@ -221,8 +221,31 @@ function BottomTabBar() {
 function UtilityBar() {
   const location = useLocation();
   const startTour = useTourStore((s) => s.start);
+  const scrollRef = useRef(null);
+  const [showLeftFade, setShowLeftFade] = useState(false);
+  const [showRightFade, setShowRightFade] = useState(false);
   const onAuthPage =
     location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/terms" || location.pathname === "/forgot-password";
+
+  // Hints that there's more to scroll to — the scrollbar itself is hidden
+  // (no-scrollbar), so without this there's no visual cue that Shelters/
+  // Safe Routes/Community Status/Leaderboard continue off-screen on
+  // narrower viewports.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    function updateFades() {
+      setShowLeftFade(el.scrollLeft > 4);
+      setShowRightFade(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    }
+    updateFades();
+    el.addEventListener("scroll", updateFades, { passive: true });
+    window.addEventListener("resize", updateFades);
+    return () => {
+      el.removeEventListener("scroll", updateFades);
+      window.removeEventListener("resize", updateFades);
+    };
+  }, [location.pathname]);
 
   if (onAuthPage) return null;
 
@@ -242,8 +265,8 @@ function UtilityBar() {
 
   return (
     <div className="sticky top-[68px] z-40 bg-mint/80 backdrop-blur-md border-b border-hairline w-full overflow-hidden">
-      <div className="section-pad h-11 flex items-center justify-between gap-3 sm:gap-6">
-        <div className="flex items-center gap-3.5 sm:gap-6 overflow-x-auto no-scrollbar py-1 shrink min-w-0">
+      <div className="section-pad h-11 flex items-center justify-between gap-3 sm:gap-6 relative">
+        <div ref={scrollRef} className="flex items-center gap-3.5 sm:gap-6 overflow-x-auto no-scrollbar py-1 shrink min-w-0">
           {links.map(({ to, label, Icon }) => (
             <NavLink key={to} to={to} className={utilLinkClass}>
               <Icon size={13} /> {label}
@@ -257,6 +280,18 @@ function UtilityBar() {
             <Compass size={13} /> Take a tour
           </button>
         </div>
+        {showLeftFade && (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-mint to-transparent"
+          />
+        )}
+        {showRightFade && (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-mint to-transparent"
+          />
+        )}
       </div>
     </div>
   );

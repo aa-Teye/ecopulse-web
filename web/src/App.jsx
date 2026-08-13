@@ -69,7 +69,7 @@ function Header() {
           <NavLink to="/my-reports" className={desktopLinkClass}>My Reports</NavLink>
           <NavLink to="/emergency-plan" className={desktopLinkClass}>Plan</NavLink>
           <NavLink to="/alerts" className={desktopLinkClass}>Alerts</NavLink>
-          <NavLink to="/emergency-contacts" className={desktopLinkClass}>Contacts</NavLink>
+          <NavLink to="/emergency-contacts" className={desktopLinkClass}>Helplines</NavLink>
         </nav>
         {/* Right side controls */}
         <div className="flex items-center gap-3">
@@ -110,7 +110,7 @@ function Header() {
           <NavLink to="/my-reports" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">My Reports</NavLink>
           <NavLink to="/emergency-plan" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Emergency Plan</NavLink>
           <NavLink to="/alerts" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Alerts</NavLink>
-          <NavLink to="/emergency-contacts" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Contacts</NavLink>
+          <NavLink to="/emergency-contacts" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Helplines</NavLink>
           <NavLink to="/news" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">News Hub</NavLink>
           <NavLink to="/shelters" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Shelters</NavLink>
           <NavLink to="/safe-routes" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Safe Routes</NavLink>

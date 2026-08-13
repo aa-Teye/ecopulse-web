@@ -75,18 +75,18 @@ export default function EmergencyContacts() {
   return (
     <div className="section-pad py-5 sm:py-7 lg:py-10 space-y-5 sm:space-y-6 w-full">
       <div className="border-b border-hairline pb-4">
-        <div className="eyebrow mb-1">EMERGENCY CONTACTS</div>
-        <h1 className="text-xl sm:text-3xl lg:text-4xl">Hotlines & Responders</h1>
+        <div className="eyebrow mb-1">HELPLINES</div>
+        <h1 className="text-xl sm:text-3xl lg:text-4xl">Helplines & Support</h1>
         <p className="text-body text-xs sm:text-sm mt-1">
-          Direct emergency hotlines in Ghana, free on all mobile networks.
+          Numbers to call for help, not only life-threatening emergencies — free on all mobile networks.
         </p>
       </div>
 
       <div className="grid md:grid-cols-12 gap-5 sm:gap-6">
-        
+
         {/* Left Column: National Hotlines (7 cols) */}
         <div className="md:col-span-7 space-y-3 sm:space-y-4">
-          <div className="eyebrow mb-2">NATIONAL EMERGENCY HOTLINES</div>
+          <div className="eyebrow mb-2">NATIONAL HELPLINES</div>
           {NATIONAL_CONTACTS.map((c) => (
             <ContactRow key={c.id} {...c} />
           ))}

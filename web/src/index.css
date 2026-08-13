@@ -3,19 +3,36 @@
 @tailwind utilities;
 
 /* Google Translate: driven programmatically from the language buttons (see
-   src/lib/googleTranslate.js) — hide its own banner/widget chrome entirely
-   so it doesn't intrude on the design. */
+   src/lib/googleTranslate.js) — hide every bit of its own UI so the user
+   never sees it's there at all, not just the top banner. Covers: the
+   banner iframe, the widget gadget itself, the hover tooltip that pops up
+   over translated text, and the balloon/menu frames. */
 #google_translate_element,
+.goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
-.goog-te-gadget {
+.goog-te-gadget,
+.goog-te-menu-frame,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+#goog-gt-tt,
+.goog-te-spinner-pos {
   display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
 }
 body {
   top: 0 !important;
+  position: static !important;
 }
 .goog-text-highlight {
   background: none !important;
   box-shadow: none !important;
+  border: none !important;
+}
+font[style*="vertical-align"] {
+  vertical-align: baseline !important;
 }
 
 /* ═══════════════════════════════════════════════

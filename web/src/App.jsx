@@ -24,6 +24,7 @@ import CommunityStatus from "./pages/CommunityStatus.jsx";
 import Placeholder from "./pages/Placeholder.jsx";
 import Tour from "./components/Tour.jsx";
 import LanguageMenu from "./components/LanguageMenu.jsx";
+import RequireAuth from "./components/RequireAuth.jsx";
 import { useTourStore } from "./store/useTourStore.js";
 import { isAuthenticated } from "./api/endpoints/auth.js";
 
@@ -290,17 +291,17 @@ export default function App() {
       <main className="flex-1 pb-24 md:pb-8 relative z-10">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/report-drain" element={<ReportDrain />} />
-          <Route path="/report-green-act" element={<ReportGreenAct />} />
-          <Route path="/play" element={<Games />} />
-          <Route path="/play/quiz" element={<PlayQuiz />} />
-          <Route path="/play/quiz/:topic" element={<PlayQuiz />} />
-          <Route path="/play/tap-drains" element={<PlayTapDrains />} />
-          <Route path="/play/sort-waste" element={<PlaySortWaste />} />
-          <Route path="/play/true-false" element={<PlayTrueFalse />} />
-          <Route path="/my-reports" element={<MyReports />} />
+          <Route path="/report-drain" element={<RequireAuth><ReportDrain /></RequireAuth>} />
+          <Route path="/report-green-act" element={<RequireAuth><ReportGreenAct /></RequireAuth>} />
+          <Route path="/play" element={<RequireAuth><Games /></RequireAuth>} />
+          <Route path="/play/quiz" element={<RequireAuth><PlayQuiz /></RequireAuth>} />
+          <Route path="/play/quiz/:topic" element={<RequireAuth><PlayQuiz /></RequireAuth>} />
+          <Route path="/play/tap-drains" element={<RequireAuth><PlayTapDrains /></RequireAuth>} />
+          <Route path="/play/sort-waste" element={<RequireAuth><PlaySortWaste /></RequireAuth>} />
+          <Route path="/play/true-false" element={<RequireAuth><PlayTrueFalse /></RequireAuth>} />
+          <Route path="/my-reports" element={<RequireAuth><MyReports /></RequireAuth>} />
           <Route path="/alerts" element={<Alerts />} />
-          <Route path="/emergency-plan" element={<EmergencyPlan />} />
+          <Route path="/emergency-plan" element={<RequireAuth><EmergencyPlan /></RequireAuth>} />
           <Route path="/learn" element={<Learn />} />
           <Route path="/leaderboard" element={<Learn initialTab="leaderboard" />} />
           <Route path="/sign-in" element={<SignIn />} />

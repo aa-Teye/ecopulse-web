@@ -198,7 +198,7 @@ export default function Home() {
   }, [])
 
   const user = getUser()
-  const firstName = user.fullName ? user.fullName.split(' ')[0] : 'Neighbour'
+  const firstName = user.username || (user.fullName ? user.fullName.split(' ')[0] : 'Neighbour')
   const district = user.district || 'Your District'
 
   return (

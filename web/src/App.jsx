@@ -2,14 +2,13 @@ import { useState } from "react";
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass } from "lucide-react";
 import Home from "./pages/Home.jsx";
-import ReportDrain from "./pages/ReportDrain.jsx";
+import Report from "./pages/Report.jsx";
 import ReportGreenAct from "./pages/ReportGreenAct.jsx";
 import Games from "./pages/Games.jsx";
 import PlayQuiz from "./pages/PlayQuiz.jsx";
 import PlayTapDrains from "./pages/PlayTapDrains.jsx";
 import PlaySortWaste from "./pages/PlaySortWaste.jsx";
 import PlayTrueFalse from "./pages/PlayTrueFalse.jsx";
-import MyReports from "./pages/MyReports.jsx";
 import Alerts from "./pages/Alerts.jsx";
 import EmergencyPlan from "./pages/EmergencyPlan.jsx";
 import EmergencyContacts from "./pages/EmergencyContacts.jsx";
@@ -77,7 +76,6 @@ function Header() {
           <NavLink to="/learn" className={desktopLinkClass}>Learn</NavLink>
           <NavLink to="/report-drain" className={desktopLinkClass}>Report</NavLink>
           <NavLink to="/report-green-act" className={desktopLinkClass}>Green Act</NavLink>
-          <NavLink to="/my-reports" className={desktopLinkClass}>My Reports</NavLink>
           <NavLink to="/emergency-plan" className={desktopLinkClass}>Plan</NavLink>
           <NavLink to="/alerts" className={desktopLinkClass}>Alerts</NavLink>
           <NavLink to="/emergency-contacts" className={desktopLinkClass}>Helplines</NavLink>
@@ -118,9 +116,8 @@ function Header() {
         <div className="md:hidden border-t border-hairline bg-white px-6 py-4 flex flex-col gap-3 animate-fade-up">
           <NavLink to="/" end onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Home</NavLink>
           <NavLink to="/learn" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Learn</NavLink>
-          <NavLink to="/report-drain" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Report Drain</NavLink>
+          <NavLink to="/report-drain" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Report &amp; My Reports</NavLink>
           <NavLink to="/report-green-act" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Log a Green Act</NavLink>
-          <NavLink to="/my-reports" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">My Reports</NavLink>
           <NavLink to="/emergency-plan" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Emergency Plan</NavLink>
           <NavLink to="/alerts" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Alerts</NavLink>
           <NavLink to="/emergency-contacts" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Helplines</NavLink>
@@ -292,7 +289,7 @@ export default function App() {
       <main className="flex-1 pb-24 md:pb-8 relative z-10">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/report-drain" element={<RequireAuth><ReportDrain /></RequireAuth>} />
+          <Route path="/report-drain" element={<RequireAuth><Report key="new" initialTab="new" /></RequireAuth>} />
           <Route path="/report-green-act" element={<RequireAuth><ReportGreenAct /></RequireAuth>} />
           <Route path="/play" element={<RequireAuth><Games /></RequireAuth>} />
           <Route path="/play/quiz" element={<RequireAuth><PlayQuiz /></RequireAuth>} />
@@ -300,7 +297,7 @@ export default function App() {
           <Route path="/play/tap-drains" element={<RequireAuth><PlayTapDrains /></RequireAuth>} />
           <Route path="/play/sort-waste" element={<RequireAuth><PlaySortWaste /></RequireAuth>} />
           <Route path="/play/true-false" element={<RequireAuth><PlayTrueFalse /></RequireAuth>} />
-          <Route path="/my-reports" element={<RequireAuth><MyReports /></RequireAuth>} />
+          <Route path="/my-reports" element={<RequireAuth><Report key="mine" initialTab="mine" /></RequireAuth>} />
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/emergency-plan" element={<RequireAuth><EmergencyPlan /></RequireAuth>} />
           <Route path="/learn" element={<Learn />} />

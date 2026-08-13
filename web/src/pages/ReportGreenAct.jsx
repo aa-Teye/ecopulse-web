@@ -29,8 +29,8 @@ export default function ReportGreenAct() {
       setFormError("Please use a JPEG or PNG photo.");
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      setFormError("Photo must be under 5MB.");
+    if (file.size > 50 * 1024 * 1024) {
+      setFormError("Photo must be under 50MB.");
       return;
     }
     setFormError(null);
@@ -179,7 +179,7 @@ export default function ReportGreenAct() {
                   <p className="font-mono text-[11px] font-bold text-forest uppercase tracking-wider">
                     DROP PHOTO OR CLICK TO UPLOAD
                   </p>
-                  <p className="text-[11px] text-body mt-1">JPEG or PNG, up to 5MB</p>
+                  <p className="text-[11px] text-body mt-1">JPEG or PNG, up to 50MB</p>
                 </>
               )}
               <input

@@ -6,6 +6,7 @@ import { signUp } from '../api/endpoints/auth.js'
 export default function SignUp() {
   const navigate = useNavigate()
   const [fullName, setFullName] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [district, setDistrict] = useState('')
   const [phone, setPhone] = useState('')
@@ -22,7 +23,7 @@ export default function SignUp() {
     setError(null)
     setSubmitting(true)
     try {
-      await signUp({ fullName, password, district, phone })
+      await signUp({ fullName, username, password, district, phone })
       navigate('/')
     } catch (err) {
       if (err.code === 'ECONNABORTED') {
@@ -74,6 +75,18 @@ export default function SignUp() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Ama Annim"
+                className="input-base !py-3 !px-4"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="signup-username" className="text-xs font-semibold text-forest uppercase tracking-wider block mb-1.5">Username</label>
+              <input
+                id="signup-username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="ama_annim"
                 className="input-base !py-3 !px-4"
               />
             </div>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Plus, FileText } from "lucide-react";
+import { FileText } from "lucide-react";
 import Card from "../../../shared-components/Card/Card.jsx";
 import Button from "../../../shared-components/Button/Button.jsx";
 import LoadingSpinner from "../../../shared-components/LoadingSpinner/LoadingSpinner.jsx";
@@ -36,7 +35,7 @@ function StatusChip({ status }) {
   );
 }
 
-export default function MyReports() {
+export default function MyReports({ onReportNew }) {
   const { reports, loading, error, loadReports } = useReportStore();
   const [filter, setFilter] = useState("all");
 
@@ -53,22 +52,7 @@ export default function MyReports() {
     filter === "all" ? reports : reports.filter((r) => r.status === filter);
 
   return (
-    <div className="section-pad py-5 sm:py-7 lg:py-10 space-y-5 sm:space-y-6 w-full">
-      
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-hairline pb-4">
-        <div>
-          <div className="eyebrow mb-1">DRAIN REPORTS TRACKER</div>
-          <h1 className="text-xl sm:text-3xl lg:text-4xl">My Drain Reports</h1>
-          <p className="text-body text-xs sm:text-sm mt-1">Track verification status and rewards for your submitted drain reports.</p>
-        </div>
-        <Link to="/report-drain">
-          <Button className="shrink-0 gap-1.5 !text-xs !py-2">
-            <Plus size={15} strokeWidth={2.5} /> Report New Blockage
-          </Button>
-        </Link>
-      </div>
-
+    <div className="space-y-5 sm:space-y-6 w-full">
       {/* Stats Cards */}
       {reports.length > 0 && (
         <div className="grid grid-cols-3 gap-3 sm:gap-4">
@@ -125,9 +109,9 @@ export default function MyReports() {
           </p>
           <p className="text-xs text-body mb-4 max-w-xs mx-auto">Help your community by reporting clogged drains near your home or business.</p>
           {reports.length === 0 && (
-            <Link to="/report-drain">
-              <Button variant="secondary" className="!text-xs !py-1.5 !px-4">Report your first drain</Button>
-            </Link>
+            <Button variant="secondary" className="!text-xs !py-1.5 !px-4" onClick={onReportNew}>
+              Report your first drain
+            </Button>
           )}
         </Card>
       )}

@@ -3,6 +3,7 @@ import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2 } from "lucide-react";
 import Home from "./pages/Home.jsx";
 import ReportDrain from "./pages/ReportDrain.jsx";
+import ReportGreenAct from "./pages/ReportGreenAct.jsx";
 import MyReports from "./pages/MyReports.jsx";
 import Alerts from "./pages/Alerts.jsx";
 import EmergencyPlan from "./pages/EmergencyPlan.jsx";
@@ -66,6 +67,7 @@ function Header() {
           <NavLink to="/" end className={desktopLinkClass}>Home</NavLink>
           <NavLink to="/learn" className={desktopLinkClass}>Learn</NavLink>
           <NavLink to="/report-drain" className={desktopLinkClass}>Report</NavLink>
+          <NavLink to="/report-green-act" className={desktopLinkClass}>Green Act</NavLink>
           <NavLink to="/my-reports" className={desktopLinkClass}>My Reports</NavLink>
           <NavLink to="/emergency-plan" className={desktopLinkClass}>Plan</NavLink>
           <NavLink to="/alerts" className={desktopLinkClass}>Alerts</NavLink>
@@ -107,6 +109,7 @@ function Header() {
           <NavLink to="/" end onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Home</NavLink>
           <NavLink to="/learn" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Learn</NavLink>
           <NavLink to="/report-drain" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Report Drain</NavLink>
+          <NavLink to="/report-green-act" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Log a Green Act</NavLink>
           <NavLink to="/my-reports" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">My Reports</NavLink>
           <NavLink to="/emergency-plan" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Emergency Plan</NavLink>
           <NavLink to="/alerts" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Alerts</NavLink>
@@ -267,6 +270,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/report-drain" element={<ReportDrain />} />
+          <Route path="/report-green-act" element={<ReportGreenAct />} />
           <Route path="/my-reports" element={<MyReports />} />
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/emergency-plan" element={<EmergencyPlan />} />

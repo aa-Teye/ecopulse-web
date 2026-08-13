@@ -11,6 +11,7 @@ const CATEGORIES = [
   { value: "weather", label: "Weather" },
   { value: "infrastructure", label: "Infrastructure" },
   { value: "community", label: "Community" },
+  { value: "global", label: "Global" },
   { value: "education", label: "Education" },
 ];
 

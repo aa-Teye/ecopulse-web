@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../../shared-components/Button/Button.jsx'
 import { signUp } from '../api/endpoints/auth.js'
+import { useTourStore } from '../store/useTourStore.js'
 
 export default function SignUp() {
   const navigate = useNavigate()
+  const startTour = useTourStore((s) => s.start)
   const [fullName, setFullName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [district, setDistrict] = useState('')
   const [phone, setPhone] = useState('')
   const [agreed, setAgreed] = useState(false)
@@ -25,6 +28,7 @@ export default function SignUp() {
     try {
       await signUp({ fullName, username, password, district, phone })
       navigate('/')
+      startTour()
     } catch (err) {
       if (err.code === 'ECONNABORTED') {
         setError("The server is waking up (free hosting sleeps when idle) — this can take up to a minute. Please try again.")
@@ -93,14 +97,24 @@ export default function SignUp() {
 
             <div>
               <label htmlFor="signup-password" className="text-xs font-semibold text-forest uppercase tracking-wider block mb-1.5">New password</label>
-              <input
-                id="signup-password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Create a password"
-                className="input-base !py-3 !px-4"
-              />
+              <div className="relative">
+                <input
+                  id="signup-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Create a password"
+                  className="input-base !py-3 !px-4 pr-16"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((s) => !s)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-body text-xs font-semibold hover:text-forest transition-colors"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? 'Hide' : 'Show'}
+                </button>
+              </div>
             </div>
 
             <div>

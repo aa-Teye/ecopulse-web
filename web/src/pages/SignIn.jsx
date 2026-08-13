@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../../shared-components/Button/Button.jsx'
 import { signIn } from '../api/endpoints/auth.js'
+import { useTourStore } from '../store/useTourStore.js'
 
 export default function SignIn() {
   const navigate = useNavigate()
+  const startTour = useTourStore((s) => s.start)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -19,6 +21,7 @@ export default function SignIn() {
     try {
       await signIn({ email, password })
       navigate('/')
+      startTour()
     } catch (err) {
       if (err.code === 'ECONNABORTED') {
         setError("The server is waking up (free hosting sleeps when idle) — this can take up to a minute. Please try again.")

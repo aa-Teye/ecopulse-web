@@ -6,7 +6,15 @@
    src/lib/googleTranslate.js) — hide every bit of its own UI so the user
    never sees it's there at all, not just the top banner. Covers: the
    banner iframe, the widget gadget itself, the hover tooltip that pops up
-   over translated text, and the balloon/menu frames. */
+   over translated text, and the balloon/menu frames.
+
+   The banner iframe's own class (goog-te-banner-frame) is kept as a
+   belt-and-suspenders selector, but Google has since switched the class it
+   actually ships on that iframe to an obfuscated one that changes across
+   script rollouts (seen live: "VIpgJd-ZVi9od-xl07Ob-OEVmcd") — relying on
+   it made the banner reappear. `iframe.skiptranslate` is the stable part:
+   it's Google's own "don't translate this" marker, present on every
+   injected iframe regardless of the obfuscated class next to it. */
 #google_translate_element,
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
@@ -16,7 +24,8 @@
 .goog-tooltip,
 .goog-tooltip:hover,
 #goog-gt-tt,
-.goog-te-spinner-pos {
+.goog-te-spinner-pos,
+iframe.skiptranslate {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;

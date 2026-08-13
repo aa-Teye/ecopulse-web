@@ -5,6 +5,7 @@ import Card from "../../../shared-components/Card/Card.jsx";
 import Button from "../../../shared-components/Button/Button.jsx";
 import { useGreenActStore } from "../store/useGreenActStore.js";
 import { ACTION_TYPES } from "../api/endpoints/greenActs.js";
+import VoiceInputButton from "../components/VoiceInputButton.jsx";
 
 export default function ReportGreenAct() {
   const navigate = useNavigate();
@@ -130,12 +131,15 @@ export default function ReportGreenAct() {
           </Card>
 
           <Card className="!p-4 sm:!p-5">
-            <label className="font-display font-bold text-xs sm:text-sm text-forest block mb-2">Tell us more</label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="font-display font-bold text-xs sm:text-sm text-forest">Tell us more</label>
+              <VoiceInputButton onTranscript={setDescription} />
+            </div>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              placeholder="e.g. Planted mango saplings along the riverbank with the neighbourhood cleanup crew"
+              placeholder="e.g. Planted mango saplings along the riverbank with the neighbourhood cleanup crew — or tap Speak instead"
               className="input-base resize-none !rounded-xl !p-3 text-xs sm:text-sm"
             />
           </Card>

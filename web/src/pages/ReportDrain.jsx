@@ -5,6 +5,7 @@ import Card from "../../../shared-components/Card/Card.jsx";
 import Button from "../../../shared-components/Button/Button.jsx";
 import { useGeolocation } from "../hooks/useGeolocation.js";
 import { useReportStore } from "../store/useReportStore.js";
+import VoiceInputButton from "../components/VoiceInputButton.jsx";
 
 export default function ReportDrain() {
   const navigate = useNavigate();
@@ -172,12 +173,15 @@ export default function ReportDrain() {
           </div>
 
           <Card className="!p-4 sm:!p-5">
-            <label className="font-display font-bold text-xs sm:text-sm text-forest block mb-2">Blockage Description</label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="font-display font-bold text-xs sm:text-sm text-forest">Blockage Description</label>
+              <VoiceInputButton onTranscript={setDescription} />
+            </div>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              placeholder="What did you observe? (e.g. Silt buildup, plastic waste, overflowing water near road)"
+              placeholder="What did you observe? (e.g. Silt buildup, plastic waste, overflowing water near road) — or tap Speak instead"
               className="input-base resize-none !rounded-xl !p-3 text-xs sm:text-sm"
             />
           </Card>

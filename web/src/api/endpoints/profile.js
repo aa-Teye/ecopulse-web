@@ -1,11 +1,17 @@
 import { apiClient, USE_MOCK } from "../client.js";
 import mockLeaderboard from "../mockData/leaderboard.json";
 
+// Codes here are Google Translate's, not the "obvious" ones: "ga" is Irish,
+// not Ghanaian Ga, so Twi and Ga use "ak" (Akan, which Twi is coded under)
+// and "gaa" instead. Verify these actually translate correctly once live —
+// Ga's support in the free website widget specifically hasn't been directly
+// confirmed, only in Google Cloud's Translation API docs.
 export const LANGUAGES = [
   { code: "en", label: "English" },
   { code: "fr", label: "French" },
-  { code: "tw", label: "Twi" },
-  { code: "ga", label: "Ga" },
+  { code: "ak", label: "Twi" },
+  { code: "gaa", label: "Ga" },
+  { code: "ha", label: "Hausa" },
 ];
 
 const BADGES = [

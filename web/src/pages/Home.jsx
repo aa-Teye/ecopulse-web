@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { ArrowRight, Droplets, TrendingUp, Trophy, Newspaper, Crown, Zap, Activity, Sprout, Gamepad2, Award } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ArrowRight, Droplets, TrendingUp, Trophy, Newspaper, Crown, Zap, Activity, Sprout, Gamepad2, Award, Compass, LogIn, Globe } from 'lucide-react'
 import Card from '../../../shared-components/Card/Card.jsx'
+import Button from '../../../shared-components/Button/Button.jsx'
 import AlertBanner from '../../../shared-components/AlertBanner/AlertBanner.jsx'
 import LoadingSpinner from '../../../shared-components/LoadingSpinner/LoadingSpinner.jsx'
 import RadarField from '../../../shared-components/RadarField/RadarField.jsx'
 import { fetchNews, fetchWeather, fetchFloodRisk } from '../api/endpoints/home.js'
 import { fetchGreenActs } from '../api/endpoints/greenActs.js'
 import { isAuthenticated } from '../api/endpoints/auth.js'
+import { LANGUAGES } from '../api/endpoints/profile.js'
+import { setSiteLanguage, getCurrentSiteLanguage } from '../lib/googleTranslate.js'
+import { useTourStore } from '../store/useTourStore.js'
 
 function getUser() {
   try { return JSON.parse(localStorage.getItem('ecopulse_user') || '{}') } catch { return {} }
@@ -127,18 +131,64 @@ function StreakCard() {
   )
 }
 
+function WelcomeHero() {
+  const startTour = useTourStore((s) => s.start)
+  const [language, setLanguage] = useState(getCurrentSiteLanguage())
+
+  function handleLanguageChange(code) {
+    setLanguage(code)
+    setSiteLanguage(code)
+  }
+
+  return (
+    <div className="lg:col-span-7 relative rounded-2xl bg-forest text-white p-4 sm:p-5 lg:p-6 overflow-hidden shadow-card-lg flex flex-col justify-between self-start">
+      <RadarField />
+      <div className="relative z-10 space-y-2.5 sm:space-y-3">
+        <div className="eyebrow !text-white/80 before:!bg-gold">WƆNƆ BY ECOPULSE</div>
+        <h1 className="text-base sm:text-xl lg:text-2xl leading-tight text-white">
+          Welcome to <span className="gold-highlight">Wɔnɔ</span>
+        </h1>
+        <p className="text-white/90 text-xs sm:text-sm max-w-xl leading-relaxed">
+          Your community's flood detection and prevention hub. Take a quick tour, or sign in to start reporting and earning Eco-Tokens.
+        </p>
+        <div className="flex flex-wrap items-center gap-2.5 pt-1">
+          <Button className="!px-4 !py-2 text-xs font-bold gap-1.5" onClick={startTour}>
+            <Compass size={14} /> Take a quick tour
+          </Button>
+          <Link to="/sign-in">
+            <Button variant="ghost" className="!bg-transparent !text-white !border-white/40 hover:!bg-white/10 !px-4 !py-2 text-xs font-semibold gap-1.5">
+              <LogIn size={14} /> Sign in
+            </Button>
+          </Link>
+        </div>
+      </div>
+      <div className="relative z-10 pt-3 mt-3 border-t border-white/15 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[10px] sm:text-xs text-white/80">
+        <span className="flex items-center gap-1 font-mono uppercase tracking-wide">
+          <Globe size={11} /> Language:
+        </span>
+        {LANGUAGES.map((l) => (
+          <button
+            key={l.code}
+            type="button"
+            onClick={() => handleLanguageChange(l.code)}
+            className={`px-2.5 py-0.5 rounded-full font-semibold transition-colors ${
+              l.code === language ? 'bg-white text-forest' : 'bg-white/10 text-white hover:bg-white/20'
+            }`}
+          >
+            {l.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
-  const navigate = useNavigate()
   const [news, setNews] = useState(null)
   const [weather, setWeather] = useState(null)
   const [risk, setRisk] = useState(null)
   const [activity, setActivity] = useState(null)
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate('/sign-in', { replace: true })
-    }
-  }, [navigate])
+  const authed = isAuthenticated()
 
   useEffect(() => {
     fetchNews().then(setNews)
@@ -146,8 +196,6 @@ export default function Home() {
     fetchFloodRisk().then(setRisk)
     fetchGreenActs().then(setActivity)
   }, [])
-
-  if (!isAuthenticated()) return null
 
   const user = getUser()
   const firstName = user.fullName ? user.fullName.split(' ')[0] : 'Neighbour'
@@ -158,26 +206,30 @@ export default function Home() {
 
       <div className="grid lg:grid-cols-12 gap-3 sm:gap-4 items-start">
 
-        <div className="lg:col-span-7 relative rounded-2xl bg-forest text-white p-4 sm:p-5 lg:p-6 overflow-hidden shadow-card-lg flex flex-col justify-between self-start">
-          <RadarField />
-          <div className="relative z-10 space-y-2 sm:space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="eyebrow !text-white/80 before:!bg-gold">WƆNƆ – {district.toUpperCase()}</div>
+        {authed ? (
+          <div className="lg:col-span-7 relative rounded-2xl bg-forest text-white p-4 sm:p-5 lg:p-6 overflow-hidden shadow-card-lg flex flex-col justify-between self-start">
+            <RadarField />
+            <div className="relative z-10 space-y-2 sm:space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="eyebrow !text-white/80 before:!bg-gold">WƆNƆ – {district.toUpperCase()}</div>
+              </div>
+              <h1 className="text-base sm:text-xl lg:text-2xl leading-tight text-white">
+                Welcome,{' '}
+                <span className="gold-highlight">{firstName}</span>
+              </h1>
+              <p className="text-white/90 text-xs sm:text-sm max-w-xl leading-relaxed">
+                Join your community in monitoring drain health and staying prepared for heavy rains.
+              </p>
             </div>
-            <h1 className="text-base sm:text-xl lg:text-2xl leading-tight text-white">
-              Obaak3,{' '}
-              <span className="gold-highlight">{firstName}</span>
-            </h1>
-            <p className="text-white/90 text-xs sm:text-sm max-w-xl leading-relaxed">
-              Join your community in monitoring drain health and staying prepared for heavy rains.
-            </p>
+            <div className="relative z-10 pt-3 mt-3 border-t border-white/15 flex items-center justify-between text-[10px] sm:text-xs text-white/80 font-mono">
+              <span>District: {district}</span>
+            </div>
           </div>
-          <div className="relative z-10 pt-3 mt-3 border-t border-white/15 flex items-center justify-between text-[10px] sm:text-xs text-white/80 font-mono">
-            <span>District: {district}</span>
-          </div>
-        </div>
+        ) : (
+          <WelcomeHero />
+        )}
 
-        <div className="lg:col-span-5 flex flex-col gap-3 sm:gap-4">
+        <div className="lg:col-span-5 flex flex-col gap-3 sm:gap-4" data-tour="flood-risk">
           <Card className="flex flex-col justify-center !p-4 sm:!p-5 h-full">
             {risk ? (
               <FloodRiskGauge score={risk.score} zone={risk.zone} />
@@ -212,7 +264,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="lg:col-span-7">
+        <div className="lg:col-span-7" data-tour="quick-actions">
           <div className="eyebrow mb-2.5">Quick actions</div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {quickActions.map((action) => (
@@ -240,7 +292,7 @@ export default function Home() {
 
       <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
         <StreakCard />
-        <Card className="!p-4 sm:!p-5 flex flex-col justify-between">
+        <Card className="!p-4 sm:!p-5 flex flex-col justify-between" data-tour="weather">
           <div>
             <div className="eyebrow mb-2">WEATHER NOW</div>
             {weather ? (
@@ -260,7 +312,7 @@ export default function Home() {
         </Card>
       </div>
 
-      <div>
+      <div data-tour="community-activity">
         <div className="flex items-center justify-between mb-2.5 sm:mb-3">
           <div className="eyebrow">Community activity</div>
           <Link to="/report-green-act" className="text-xs font-bold text-forest underline underline-offset-2 hover:text-forest-light">
@@ -298,7 +350,7 @@ export default function Home() {
         )}
       </div>
 
-      <div>
+      <div data-tour="news">
         <div className="eyebrow mb-2.5 sm:mb-3">Climate + flood news</div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
           {news ? (

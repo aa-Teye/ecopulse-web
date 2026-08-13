@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass } from "lucide-react";
 import Home from "./pages/Home.jsx";
@@ -20,6 +20,7 @@ import SafeRoutes from "./pages/SafeRoutes.jsx";
 import CommunityStatus from "./pages/CommunityStatus.jsx";
 import Placeholder from "./pages/Placeholder.jsx";
 import Tour from "./components/Tour.jsx";
+import LanguageMenu from "./components/LanguageMenu.jsx";
 import { useTourStore } from "./store/useTourStore.js";
 import { isAuthenticated } from "./api/endpoints/auth.js";
 
@@ -77,7 +78,8 @@ function Header() {
           <NavLink to="/emergency-contacts" className={desktopLinkClass}>Helplines</NavLink>
         </nav>
         {/* Right side controls */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <LanguageMenu />
           {authed ? (
             <NavLink
               to="/profile"
@@ -275,12 +277,6 @@ function PageBackground() {
 }
 
 export default function App() {
-  const maybeAutoStart = useTourStore((s) => s.maybeAutoStart);
-
-  useEffect(() => {
-    maybeAutoStart();
-  }, [maybeAutoStart]);
-
   return (
     <div className="min-h-screen bg-mint/30 flex flex-col font-sans antialiased text-forest selection:bg-gold selection:text-forest relative">
       <PageBackground />

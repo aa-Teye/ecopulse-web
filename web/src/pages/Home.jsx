@@ -1,22 +1,33 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowRight, Droplets, TrendingUp, Trophy, Newspaper, Crown, Zap, Activity } from 'lucide-react'
+import { ArrowRight, Droplets, TrendingUp, Trophy, Newspaper, Crown, Zap, Activity, Sprout, Gamepad2, Award } from 'lucide-react'
 import Card from '../../../shared-components/Card/Card.jsx'
 import AlertBanner from '../../../shared-components/AlertBanner/AlertBanner.jsx'
 import LoadingSpinner from '../../../shared-components/LoadingSpinner/LoadingSpinner.jsx'
 import RadarField from '../../../shared-components/RadarField/RadarField.jsx'
 import { fetchNews, fetchWeather, fetchFloodRisk } from '../api/endpoints/home.js'
+import { fetchGreenActs } from '../api/endpoints/greenActs.js'
 import { isAuthenticated } from '../api/endpoints/auth.js'
 
 function getUser() {
   try { return JSON.parse(localStorage.getItem('ecopulse_user') || '{}') } catch { return {} }
 }
 
+function timeAgo(iso) {
+  const diff = Date.now() - new Date(iso).getTime()
+  const hrs = Math.floor(diff / 3_600_000)
+  if (hrs < 1) return 'Just now'
+  if (hrs < 24) return `${hrs}h ago`
+  return `${Math.floor(hrs / 24)}d ago`
+}
+
 const quickActions = [
   { to: '/report-drain', label: 'Report a drain', hint: 'Photo + location', icon: Droplets, color: 'bg-emerald/10 text-emerald border-emerald/20' },
-  { to: '/alerts', label: 'View alerts', hint: 'Live notifications', icon: TrendingUp, color: 'bg-coral/10 text-coral border-coral/20' },
-  { to: '/emergency-plan', label: 'Emergency plan', hint: 'Household + shelter', icon: Zap, color: 'bg-gold-soft text-sim-text border-gold/30' },
+  { to: '/report-green-act', label: 'Log a green act', hint: 'Instant Eco-Tokens', icon: Sprout, color: 'bg-live-bg text-live-text border-emerald/30' },
+  { to: '/play/quiz', label: 'Play & earn', hint: 'Quiz + drain game', icon: Gamepad2, color: 'bg-gold-soft text-sim-text border-gold/30' },
   { to: '/learn', label: 'Climate Literacy', hint: 'Lessons + leaderboard', icon: Trophy, color: 'bg-forest/10 text-forest border-forest/20' },
+  { to: '/emergency-plan', label: 'Emergency plan', hint: 'Household + shelter', icon: Zap, color: 'bg-gold-soft text-sim-text border-gold/30' },
+  { to: '/alerts', label: 'View alerts', hint: 'Live notifications', icon: TrendingUp, color: 'bg-coral/10 text-coral border-coral/20' },
 ]
 
 const communityPhotos = [
@@ -121,6 +132,7 @@ export default function Home() {
   const [news, setNews] = useState(null)
   const [weather, setWeather] = useState(null)
   const [risk, setRisk] = useState(null)
+  const [activity, setActivity] = useState(null)
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -132,6 +144,7 @@ export default function Home() {
     fetchNews().then(setNews)
     fetchWeather().then(setWeather)
     fetchFloodRisk().then(setRisk)
+    fetchGreenActs().then(setActivity)
   }, [])
 
   if (!isAuthenticated()) return null
@@ -201,7 +214,7 @@ export default function Home() {
 
         <div className="lg:col-span-7">
           <div className="eyebrow mb-2.5">Quick actions</div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {quickActions.map((action) => (
               <Link key={action.to} to={action.to} className="h-full">
                 <Card hover className="h-full group !p-4 sm:!p-5 flex flex-col items-center justify-center text-center min-h-[120px] sm:min-h-[135px]">
@@ -245,6 +258,44 @@ export default function Home() {
             <span className="font-semibold text-forest">GMet Ghana</span>
           </div>
         </Card>
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+          <div className="eyebrow">Community activity</div>
+          <Link to="/report-green-act" className="text-xs font-bold text-forest underline underline-offset-2 hover:text-forest-light">
+            Log yours
+          </Link>
+        </div>
+        {activity ? (
+          activity.length === 0 ? (
+            <Card className="!p-5 text-center text-body text-xs sm:text-sm">
+              No green acts logged yet — be the first in your neighbourhood.
+            </Card>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5">
+              {activity.slice(0, 6).map((item) => (
+                <Card key={item.id} className="!p-4 flex items-start gap-3">
+                  <span className="w-9 h-9 rounded-xl bg-live-bg text-live-text flex items-center justify-center shrink-0">
+                    <Award size={16} strokeWidth={2} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm text-forest leading-snug">
+                      <span className="font-bold">{item.userName}</span> · {item.actionLabel.toLowerCase()}
+                    </p>
+                    <div className="flex items-center gap-2 mt-1 text-[10px] sm:text-[11px] text-body">
+                      <span className="font-mono font-bold text-sim-text">+{item.pointsAwarded} pts</span>
+                      <span>·</span>
+                      <span>{timeAgo(item.createdAt)}</span>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )
+        ) : (
+          <LoadingSpinner label="Loading community activity…" />
+        )}
       </div>
 
       <div>

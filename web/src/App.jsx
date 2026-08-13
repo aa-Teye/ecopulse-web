@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Routes, Route, NavLink, useLocation } from "react-router-dom";
-import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass } from "lucide-react";
+import { Routes, Route, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass, LogOut } from "lucide-react";
 import Home from "./pages/Home.jsx";
 import Report from "./pages/Report.jsx";
 import ReportGreenAct from "./pages/ReportGreenAct.jsx";
@@ -26,7 +26,7 @@ import Tour from "./components/Tour.jsx";
 import LanguageMenu from "./components/LanguageMenu.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import { useTourStore } from "./store/useTourStore.js";
-import { isAuthenticated } from "./api/endpoints/auth.js";
+import { isAuthenticated, signOut } from "./api/endpoints/auth.js";
 
 // Set once Ishaque's admin dashboard is deployed (see .env.example).
 // Falls back to a relative /admin path so the link still works if the
@@ -51,6 +51,7 @@ const tabClass = ({ isActive }) =>
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const authed = isAuthenticated();
   const startTour = useTourStore((s) => s.start);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -84,13 +85,27 @@ function Header() {
         <div className="flex items-center gap-2 sm:gap-3">
           <LanguageMenu />
           {authed ? (
-            <NavLink
-              to="/profile"
-              className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center hover:bg-forest-light transition-colors shadow-sm"
-              aria-label="Profile"
-            >
-              <User size={16} strokeWidth={2} />
-            </NavLink>
+            <>
+              <NavLink
+                to="/profile"
+                className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center hover:bg-forest-light transition-colors shadow-sm"
+                aria-label="Profile"
+              >
+                <User size={16} strokeWidth={2} />
+              </NavLink>
+              <button
+                type="button"
+                onClick={() => {
+                  signOut();
+                  navigate("/sign-in");
+                }}
+                className="hidden sm:flex w-9 h-9 rounded-full bg-mint text-forest items-center justify-center hover:bg-mint-dark transition-colors"
+                aria-label="Sign out"
+                title="Sign out"
+              >
+                <LogOut size={16} strokeWidth={2} />
+              </button>
+            </>
           ) : (
             <NavLink
               to="/sign-in"
@@ -128,6 +143,19 @@ function Header() {
           <NavLink to="/profile" onClick={() => setMobileOpen(false)} className="text-[15px] font-bold text-forest py-1 flex items-center gap-2">
             <User size={16} /> My Profile
           </NavLink>
+          {authed && (
+            <button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false);
+                signOut();
+                navigate("/sign-in");
+              }}
+              className="text-[15px] font-medium text-forest/80 py-1 flex items-center gap-2 text-left"
+            >
+              <LogOut size={16} /> Sign out
+            </button>
+          )}
           <button
             type="button"
             onClick={() => {

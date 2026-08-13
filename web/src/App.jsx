@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Routes, Route, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, LayoutDashboard, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass, LogOut } from "lucide-react";
+import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass, LogOut } from "lucide-react";
 import Home from "./pages/Home.jsx";
 import Report from "./pages/Report.jsx";
 import ReportGreenAct from "./pages/ReportGreenAct.jsx";
@@ -28,11 +28,6 @@ import LanguageMenu from "./components/LanguageMenu.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import { useTourStore } from "./store/useTourStore.js";
 import { isAuthenticated, signOut } from "./api/endpoints/auth.js";
-
-// Set once Ishaque's admin dashboard is deployed (see .env.example).
-// Falls back to a relative /admin path so the link still works if the
-// dashboard is deployed to the same Vercel instance.
-const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL || "/admin";
 
 /* ── Desktop top nav link style ── */
 const desktopLinkClass = ({ isActive }) =>
@@ -167,15 +162,6 @@ function Header() {
           >
             <Compass size={16} /> Take a tour / guide
           </button>
-          <a
-            href={DASHBOARD_URL}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => setMobileOpen(false)}
-            className="text-[13px] font-semibold text-body/60 py-1 flex items-center gap-2 border-t border-hairline mt-1 pt-3"
-          >
-            <LayoutDashboard size={14} /> Admin Dashboard
-          </a>
           {!authed && (
             <NavLink
               to="/sign-in"
@@ -271,16 +257,6 @@ function UtilityBar() {
             <Compass size={13} /> Take a tour
           </button>
         </div>
-
-        <a
-          href={DASHBOARD_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="hidden sm:inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-forest bg-white border border-hairline rounded-full px-3 py-1 shadow-card hover:shadow-card-hover transition-shadow shrink-0"
-          title="Opens the responder/admin dashboard"
-        >
-          <LayoutDashboard size={13} /> Admin Dashboard
-        </a>
       </div>
     </div>
   );

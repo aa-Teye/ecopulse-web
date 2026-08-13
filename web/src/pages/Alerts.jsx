@@ -20,8 +20,43 @@ function timeAgo(iso) {
 }
 
 
+// Three short beeps, synthesized with the Web Audio API so the alert makes
+// noise without bundling an audio file. Browsers block autoplay audio that
+// isn't tied to a user gesture, so failures here are expected on some
+// browsers/tabs (e.g. before the user has clicked anything on the page)
+// and are swallowed rather than surfaced as an error.
+function playAlertTone() {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AudioContextClass();
+    const beepAt = (startTime) => {
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+      oscillator.type = "square";
+      oscillator.frequency.value = 880;
+      gain.gain.setValueAtTime(0.15, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.25);
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+      oscillator.start(startTime);
+      oscillator.stop(startTime + 0.25);
+    };
+    const now = ctx.currentTime;
+    beepAt(now);
+    beepAt(now + 0.35);
+    beepAt(now + 0.7);
+  } catch {
+    // Web Audio unavailable or blocked — the visual banner still works.
+  }
+}
+
 function LiveAlertBanner({ alert, onSafe, dismissing }) {
   const [minimized, setMinimized] = useState(false);
+
+  useEffect(() => {
+    if (alert.severity === "critical") playAlertTone();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [alert.id]);
 
   if (minimized) {
     return (
@@ -88,11 +123,13 @@ function LiveAlertBanner({ alert, onSafe, dismissing }) {
           </div>
         )}
 
-        <p className="text-xs sm:text-sm text-white/95 pt-0.5">
-          Nearest accessible shelter:{" "}
-          <span className="font-bold underline decoration-white/50">{alert.shelter.name}</span>{" "}
-          (ETA <span className="font-mono">{alert.shelter.etaMin} min</span>).
-        </p>
+        {alert.shelter && (
+          <p className="text-xs sm:text-sm text-white/95 pt-0.5">
+            Nearest accessible shelter:{" "}
+            <span className="font-bold underline decoration-white/50">{alert.shelter.name}</span>{" "}
+            (ETA <span className="font-mono">{alert.shelter.etaMin} min</span>).
+          </p>
+        )}
       </div>
 
       <div className="relative z-10 flex flex-wrap gap-3 mt-5 pt-3 border-t border-white/20">

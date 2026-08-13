@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowRight, Droplets, TrendingUp, Trophy, Newspaper, Crown, Zap, Activity, Radio, MapPin } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowRight, Droplets, TrendingUp, Trophy, Newspaper, Crown, Zap, Activity } from 'lucide-react'
 import Card from '../../../shared-components/Card/Card.jsx'
 import AlertBanner from '../../../shared-components/AlertBanner/AlertBanner.jsx'
 import LoadingSpinner from '../../../shared-components/LoadingSpinner/LoadingSpinner.jsx'
 import RadarField from '../../../shared-components/RadarField/RadarField.jsx'
 import { fetchNews, fetchWeather, fetchFloodRisk } from '../api/endpoints/home.js'
+import { isAuthenticated } from '../api/endpoints/auth.js'
 
 function getUser() {
   try { return JSON.parse(localStorage.getItem('ecopulse_user') || '{}') } catch { return {} }
@@ -69,52 +70,10 @@ function FloodRiskGauge({ score, zone }) {
         <div className="eyebrow mb-1">Today's flood risk</div>
         <p className="font-display font-bold text-base sm:text-xl text-forest">{zone}</p>
         <p className="text-xs text-body mt-1 leading-relaxed max-w-xs">
-          God's Eye sensors + GMet forecast.
+          Based on drainage conditions + GMet forecast.
         </p>
       </div>
     </div>
-  )
-}
-
-function SensorMapCard() {
-  const nodes = [
-    { name: 'Main Drain — Zone A', level: '14%', status: 'OPTIMAL', color: 'text-live-text bg-live-bg' },
-    { name: 'Central Canal', level: '78%', status: 'ELEVATED', color: 'text-sim-text bg-gold-soft' },
-    { name: 'Market West Drain', level: '22%', status: 'OPTIMAL', color: 'text-live-text bg-live-bg' },
-  ]
-
-  return (
-    <Card className="!p-4 sm:!p-5 flex flex-col justify-between">
-      <div>
-        <div className="flex items-center justify-between mb-2.5">
-          <div className="eyebrow">GOD'S EYE SENSORS</div>
-          <span className="flex items-center gap-1 text-[10px] font-mono font-semibold text-live-text bg-live-bg px-2 py-0.5 rounded-full">
-            <Radio size={10} className="animate-pulse" /> LIVE
-          </span>
-        </div>
-        <p className="font-display font-bold text-forest text-sm sm:text-base mb-2.5">Neighborhood Drain Network</p>
-        <div className="space-y-2">
-          {nodes.map((node) => (
-            <div key={node.name} className="flex items-center justify-between text-xs p-2 sm:p-2.5 rounded-xl bg-mint border border-hairline">
-              <div className="flex items-center gap-1.5 min-w-0">
-                <MapPin size={12} className="text-forest/60 shrink-0" />
-                <span className="font-semibold text-forest truncate text-[11px] sm:text-xs">{node.name}</span>
-              </div>
-              <div className="flex items-center gap-1.5 shrink-0">
-                <span className="font-mono font-bold text-forest text-[11px] sm:text-xs">{node.level}</span>
-                <span className={`font-mono text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded ${node.color}`}>
-                  {node.status}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="mt-3 pt-2 border-t border-hairline flex items-center justify-between text-[10px] sm:text-[11px] text-body">
-        <span>3 active nodes</span>
-        <span className="font-mono text-forest font-bold">ACCRA-ZONE-4</span>
-      </div>
-    </Card>
   )
 }
 
@@ -158,15 +117,24 @@ function StreakCard() {
 }
 
 export default function Home() {
+  const navigate = useNavigate()
   const [news, setNews] = useState(null)
   const [weather, setWeather] = useState(null)
   const [risk, setRisk] = useState(null)
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/sign-in', { replace: true })
+    }
+  }, [navigate])
 
   useEffect(() => {
     fetchNews().then(setNews)
     fetchWeather().then(setWeather)
     fetchFloodRisk().then(setRisk)
   }, [])
+
+  if (!isAuthenticated()) return null
 
   const user = getUser()
   const firstName = user.fullName ? user.fullName.split(' ')[0] : 'Neighbour'
@@ -257,10 +225,9 @@ export default function Home() {
         />
       )}
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-        <SensorMapCard />
+      <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
         <StreakCard />
-        <Card className="!p-4 sm:!p-5 flex flex-col justify-between md:col-span-2 lg:col-span-1">
+        <Card className="!p-4 sm:!p-5 flex flex-col justify-between">
           <div>
             <div className="eyebrow mb-2">WEATHER NOW</div>
             {weather ? (

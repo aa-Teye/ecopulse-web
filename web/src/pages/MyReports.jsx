@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FileText } from "lucide-react";
+import { FileText, Video } from "lucide-react";
 import Card from "../../../shared-components/Card/Card.jsx";
 import Button from "../../../shared-components/Button/Button.jsx";
 import LoadingSpinner from "../../../shared-components/LoadingSpinner/LoadingSpinner.jsx";
@@ -127,6 +127,16 @@ export default function MyReports({ onReportNew }) {
                   alt={`Drain report at ${r.location}`}
                   className="w-full h-28 object-cover rounded-xl"
                 />
+              )}
+              {r.videoUrl && (
+                <a
+                  href={r.videoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 text-[11px] font-mono font-semibold text-forest bg-mint w-fit px-2.5 py-1 rounded-full hover:bg-mint-dark transition-colors"
+                >
+                  <Video size={12} /> Video attached
+                </a>
               )}
               <div className="flex items-start justify-between gap-2">
                 <p className="font-display font-bold text-forest text-xs sm:text-sm truncate">{r.location}</p>

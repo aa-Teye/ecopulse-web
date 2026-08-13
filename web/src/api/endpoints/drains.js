@@ -25,8 +25,14 @@ export async function submitDrainReport(report) {
   if (report.photo) {
     form.append('photo', report.photo)
   }
+  if (report.video) {
+    form.append('video', report.video)
+  }
   const { data } = await apiClient.post('/drains/report', form, {
     headers: { 'Content-Type': 'multipart/form-data' },
+    // A 100MB video can take minutes over a slow connection — the default
+    // 60s timeout is sized for cold starts, not large uploads.
+    timeout: report.video ? 300000 : undefined,
   })
   return data
 }

@@ -22,7 +22,7 @@ export async function fetchGreenActs() {
   return data
 }
 
-export async function submitGreenAct({ actionType, description, photo }) {
+export async function submitGreenAct({ actionType, description, photo, video }) {
   if (USE_MOCK) {
     await new Promise((r) => setTimeout(r, 500))
     const meta = ACTION_TYPES.find((a) => a.value === actionType)
@@ -33,6 +33,7 @@ export async function submitGreenAct({ actionType, description, photo }) {
       description,
       pointsAwarded: meta?.points ?? 10,
       photoUrl: null,
+      videoUrl: null,
       userName: 'You',
       createdAt: new Date().toISOString(),
     }
@@ -41,8 +42,12 @@ export async function submitGreenAct({ actionType, description, photo }) {
   form.append('action_type', actionType)
   form.append('description', description || '')
   if (photo) form.append('photo', photo)
+  if (video) form.append('video', video)
   const { data } = await apiClient.post('/green-acts', form, {
     headers: { 'Content-Type': 'multipart/form-data' },
+    // A 100MB video can take minutes over a slow connection — the default
+    // 60s timeout is sized for cold starts, not large uploads.
+    timeout: video ? 300000 : undefined,
   })
   return data
 }

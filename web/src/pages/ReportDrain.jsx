@@ -1,13 +1,16 @@
 import { useRef, useState } from "react";
-import { Check, Camera, MapPin, Search, Award } from "lucide-react";
+import { Check, Camera, MapPin, Search, Award, Video } from "lucide-react";
 import Card from "../../../shared-components/Card/Card.jsx";
 import Button from "../../../shared-components/Button/Button.jsx";
 import { useGeolocation } from "../hooks/useGeolocation.js";
 import { useReportStore } from "../store/useReportStore.js";
 import VoiceInputButton from "../components/VoiceInputButton.jsx";
 
+const ALLOWED_VIDEO_TYPES = /^video\/(mp4|quicktime|webm|3gpp)$/;
+
 export default function ReportDrain({ onViewReports }) {
   const fileInputRef = useRef(null);
+  const videoInputRef = useRef(null);
   const {
     coords,
     status: locStatus,
@@ -20,7 +23,10 @@ export default function ReportDrain({ onViewReports }) {
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [video, setVideo] = useState(null);
+  const [videoPreview, setVideoPreview] = useState(null);
   const [dragOver, setDragOver] = useState(false);
+  const [videoDragOver, setVideoDragOver] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(null);
   const [formError, setFormError] = useState(null);
@@ -38,6 +44,21 @@ export default function ReportDrain({ onViewReports }) {
     setFormError(null);
     setPhoto(file);
     setPhotoPreview(URL.createObjectURL(file));
+  }
+
+  function handleVideoFile(file) {
+    if (!file) return;
+    if (!ALLOWED_VIDEO_TYPES.test(file.type)) {
+      setFormError("Please use an MP4, MOV, WebM, or 3GP video.");
+      return;
+    }
+    if (file.size > 100 * 1024 * 1024) {
+      setFormError("Video must be under 100MB.");
+      return;
+    }
+    setFormError(null);
+    setVideo(file);
+    setVideoPreview(URL.createObjectURL(file));
   }
 
   async function handleSubmit(e) {
@@ -59,6 +80,7 @@ export default function ReportDrain({ onViewReports }) {
         coords,
         description,
         photo,
+        video,
       });
       setSubmitted(created);
     } catch (err) {
@@ -98,6 +120,8 @@ export default function ReportDrain({ onViewReports }) {
               setDescription("");
               setPhoto(null);
               setPhotoPreview(null);
+              setVideo(null);
+              setVideoPreview(null);
             }}
           >
             Report another drain
@@ -216,6 +240,56 @@ export default function ReportDrain({ onViewReports }) {
               accept="image/jpeg,image/png"
               capture="environment"
               onChange={(e) => handleFile(e.target.files?.[0])}
+              className="hidden"
+            />
+          </div>
+        </Card>
+
+        <Card className="!p-3 sm:!p-4">
+          <label className="font-display font-bold text-xs sm:text-sm text-forest block mb-2">Video Evidence (optional)</label>
+          <div
+            onDragOver={(e) => {
+              e.preventDefault();
+              setVideoDragOver(true);
+            }}
+            onDragLeave={() => setVideoDragOver(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setVideoDragOver(false);
+              handleVideoFile(e.dataTransfer.files?.[0]);
+            }}
+            onClick={() => videoInputRef.current?.click()}
+            className={`rounded-xl border-2 border-dashed p-6 text-center cursor-pointer transition-all duration-200 ${videoDragOver
+                ? "border-forest bg-mint"
+                : "border-hairline hover:border-forest/40 hover:bg-mint/40"
+              }`}
+          >
+            {videoPreview ? (
+              <video
+                src={videoPreview}
+                controls
+                className="max-h-44 mx-auto rounded-xl shadow-sm"
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <>
+                <div className="w-11 h-11 rounded-xl bg-mint flex items-center justify-center mx-auto mb-2 text-forest">
+                  <Video size={20} strokeWidth={1.8} />
+                </div>
+                <p className="font-mono text-[11px] font-bold text-forest uppercase tracking-wider">
+                  DROP VIDEO OR CLICK TO UPLOAD
+                </p>
+                <p className="text-[11px] text-body mt-1">
+                  MP4, MOV, WebM or 3GP, up to 100MB
+                </p>
+              </>
+            )}
+            <input
+              ref={videoInputRef}
+              type="file"
+              accept="video/mp4,video/quicktime,video/webm,video/3gpp"
+              capture="environment"
+              onChange={(e) => handleVideoFile(e.target.files?.[0])}
               className="hidden"
             />
           </div>

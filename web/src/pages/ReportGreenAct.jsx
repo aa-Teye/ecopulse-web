@@ -9,7 +9,7 @@ import VoiceInputButton from "../components/VoiceInputButton.jsx";
 
 const ALLOWED_VIDEO_TYPES = /^video\/(mp4|quicktime|webm|3gpp)$/;
 
-export default function ReportGreenAct() {
+export default function ReportGreenAct({ onViewReports }) {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const afterFileInputRef = useRef(null);
@@ -113,6 +113,11 @@ export default function ReportGreenAct() {
           <Button variant="secondary" className="!px-5 !py-2.5 text-xs sm:text-sm" onClick={() => navigate("/")}>
             Back home
           </Button>
+          {onViewReports && (
+            <Button variant="secondary" className="!px-5 !py-2.5 text-xs sm:text-sm" onClick={onViewReports}>
+              View my reports
+            </Button>
+          )}
           <Button
             className="!px-5 !py-2.5 text-xs sm:text-sm"
             onClick={() => {

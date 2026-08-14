@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SegmentedControl from "../../../shared-components/SegmentedControl/SegmentedControl.jsx";
 import ReportDrain from "./ReportDrain.jsx";
+import ReportGreenAct from "./ReportGreenAct.jsx";
 import MyReports from "./MyReports.jsx";
 
 export default function Report({ initialTab = "new" }) {
@@ -13,7 +14,7 @@ export default function Report({ initialTab = "new" }) {
           <div className="eyebrow mb-1">COMMUNITY REPORTING</div>
           <h1 className="text-lg sm:text-xl lg:text-2xl">Report &amp; track</h1>
           <p className="text-body text-xs mt-1">
-            Report a drain, an incident, or someone — or check the status of what you've already reported.
+            Report a drain, an incident, someone, or a green act — or check the status of what you've already reported.
           </p>
         </div>
       </div>
@@ -23,15 +24,14 @@ export default function Report({ initialTab = "new" }) {
         onChange={setTab}
         options={[
           { value: "new", label: "New Report" },
+          { value: "greenAct", label: "Green Act" },
           { value: "mine", label: "My Reports" },
         ]}
       />
 
-      {tab === "new" ? (
-        <ReportDrain onViewReports={() => setTab("mine")} />
-      ) : (
-        <MyReports onReportNew={() => setTab("new")} />
-      )}
+      {tab === "new" && <ReportDrain onViewReports={() => setTab("mine")} />}
+      {tab === "greenAct" && <ReportGreenAct onViewReports={() => setTab("mine")} />}
+      {tab === "mine" && <MyReports onReportNew={() => setTab("new")} />}
     </div>
   );
 }

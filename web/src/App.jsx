@@ -4,7 +4,6 @@ import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, News
 import HackathonTV from "./pages/HackathonTV.jsx";
 import Home from "./pages/Home.jsx";
 import Report from "./pages/Report.jsx";
-import ReportGreenAct from "./pages/ReportGreenAct.jsx";
 import Games from "./pages/Games.jsx";
 import PlayQuiz from "./pages/PlayQuiz.jsx";
 import PlayTapDrains from "./pages/PlayTapDrains.jsx";
@@ -73,7 +72,6 @@ function Header() {
           <NavLink to="/" end className={desktopLinkClass}>Home</NavLink>
           <NavLink to="/learn" className={desktopLinkClass}>Learn</NavLink>
           <NavLink to="/report-drain" className={desktopLinkClass}>Report</NavLink>
-          <NavLink to="/report-green-act" className={desktopLinkClass}>Green Act</NavLink>
           <NavLink to="/emergency-plan" className={desktopLinkClass}>Plan</NavLink>
           <NavLink to="/alerts" className={desktopLinkClass}>Alerts</NavLink>
           <NavLink to="/emergency-contacts" className={desktopLinkClass}>Helplines</NavLink>
@@ -136,7 +134,6 @@ function Header() {
           <NavLink to="/" end onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Home</NavLink>
           <NavLink to="/learn" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Learn</NavLink>
           <NavLink to="/report-drain" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Report &amp; My Reports</NavLink>
-          <NavLink to="/report-green-act" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Log a Green Act</NavLink>
           <NavLink to="/emergency-plan" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Emergency Plan</NavLink>
           <NavLink to="/alerts" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Alerts</NavLink>
           <NavLink to="/emergency-contacts" onClick={() => setMobileOpen(false)} className="text-[15px] font-medium text-forest/80 py-1">Helplines</NavLink>
@@ -338,7 +335,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/report-drain" element={<RequireAuth><Report key="new" initialTab="new" /></RequireAuth>} />
-          <Route path="/report-green-act" element={<RequireAuth><ReportGreenAct /></RequireAuth>} />
+          <Route path="/report-green-act" element={<RequireAuth><Report key="greenAct" initialTab="greenAct" /></RequireAuth>} />
           <Route path="/play" element={<RequireAuth><Games /></RequireAuth>} />
           <Route path="/play/quiz" element={<RequireAuth><PlayQuiz /></RequireAuth>} />
           <Route path="/play/quiz/:topic" element={<RequireAuth><PlayQuiz /></RequireAuth>} />

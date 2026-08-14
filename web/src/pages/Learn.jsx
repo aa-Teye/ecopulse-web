@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Clock, CheckCircle2, Trophy, Crown, BookOpen, ExternalLink } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Clock, CheckCircle2, Trophy, Crown, BookOpen, ExternalLink, Sprout } from 'lucide-react'
 import Card from '../../../shared-components/Card/Card.jsx'
 import Button from '../../../shared-components/Button/Button.jsx'
 import LoadingSpinner from '../../../shared-components/LoadingSpinner/LoadingSpinner.jsx'
@@ -205,6 +206,20 @@ function LearnTab({ lessons, onOpen }) {
 function LeaderboardTab({ board, onInfo }) {
   return (
     <div className="space-y-3 sm:space-y-4">
+      <Link to="/report-green-act">
+        <Card className="!bg-mint !border-0 flex items-center justify-between !p-3.5 sm:!p-5 hover:!bg-mint-dark transition-colors">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-white/80 flex items-center justify-center text-forest shrink-0">
+              <Sprout size={18} />
+            </div>
+            <div>
+              <p className="font-display font-bold text-forest text-xs sm:text-sm">Log a green act</p>
+              <p className="text-[11px] text-body">Earn Eco-Tokens instantly, climb the leaderboard</p>
+            </div>
+          </div>
+        </Card>
+      </Link>
+
       <Card className="!bg-gold-soft !border-0 flex items-center justify-between !p-3.5 sm:!p-5">
         <div>
           <p className="text-[10px] font-mono text-body uppercase tracking-wider">Your rank</p>

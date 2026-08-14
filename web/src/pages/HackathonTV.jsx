@@ -1,9 +1,12 @@
 import { Radio } from "lucide-react";
 
-// Alex sets this on Vercel once vMix + the YouTube channel are streaming —
-// copy the "Embed" URL YouTube gives you for the live video (Share > Embed
-// > copy the src="..." value), not the regular watch link.
-const EMBED_URL = import.meta.env.VITE_YOUTUBE_LIVE_EMBED_URL;
+// YouTube's "live_stream" embed auto-shows whatever is currently live on
+// this channel — no need to know a specific video ID in advance, so this
+// keeps working every time vMix starts a new stream on demo day.
+// VITE_YOUTUBE_LIVE_EMBED_URL (set on Vercel) overrides this if a
+// different specific video/channel is ever needed.
+const DEFAULT_EMBED_URL = "https://www.youtube.com/embed/live_stream?channel=UC_Rsr_N_-n35oKTc6YjfdNA";
+const EMBED_URL = import.meta.env.VITE_YOUTUBE_LIVE_EMBED_URL || DEFAULT_EMBED_URL;
 
 export default function HackathonTV() {
   return (

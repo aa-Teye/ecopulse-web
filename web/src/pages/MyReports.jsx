@@ -138,11 +138,19 @@ export default function MyReports({ onReportNew }) {
                   <Video size={12} /> Video attached
                 </a>
               )}
+              {r.reportType && r.reportType !== "drain" && (
+                <span className="inline-block text-[10px] font-mono font-semibold text-forest bg-mint w-fit px-2 py-0.5 rounded-full uppercase tracking-wide">
+                  {r.reportType === "person" ? "Reported person" : "Incident"}
+                </span>
+              )}
               <div className="flex items-start justify-between gap-2">
                 <p className="font-display font-bold text-forest text-xs sm:text-sm truncate">{r.location}</p>
                 <StatusChip status={r.status} />
               </div>
               <p className="text-xs text-body leading-relaxed">{r.description}</p>
+              {r.subjectDescription && (
+                <p className="text-xs text-body/80 leading-relaxed italic">"{r.subjectDescription}"</p>
+              )}
             </div>
             <div className="pt-2.5 border-t border-hairline mt-3 flex items-center justify-between text-[10px] sm:text-[11px] text-body">
               <span className="font-mono">Ref: {r.id}</span>

@@ -8,6 +8,12 @@ import VoiceInputButton from "../components/VoiceInputButton.jsx";
 
 const ALLOWED_VIDEO_TYPES = /^video\/(mp4|quicktime|webm|3gpp)$/;
 
+const REPORT_TYPES = [
+  { value: "drain", label: "Drain / Flooding", description: "Blocked drain, overflow, or standing water" },
+  { value: "incident", label: "Incident", description: "Anything else that needs attention — damaged sensor, blocked road, etc." },
+  { value: "person", label: "Report Someone", description: "Flag a person for something like illegal dumping or blocking a drain" },
+];
+
 export default function ReportDrain({ onViewReports }) {
   const fileInputRef = useRef(null);
   const videoInputRef = useRef(null);
@@ -19,8 +25,10 @@ export default function ReportDrain({ onViewReports }) {
   } = useGeolocation();
   const addReport = useReportStore((s) => s.addReport);
 
+  const [reportType, setReportType] = useState("drain");
   const [locationText, setLocationText] = useState("");
   const [description, setDescription] = useState("");
+  const [subjectDescription, setSubjectDescription] = useState("");
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [video, setVideo] = useState(null);
@@ -71,6 +79,10 @@ export default function ReportDrain({ onViewReports }) {
       setFormError("Describe what you saw so responders know what to expect.");
       return;
     }
+    if (reportType === "person" && !subjectDescription.trim()) {
+      setFormError("Add a description of who you're reporting.");
+      return;
+    }
     setFormError(null);
     setSubmitting(true);
     try {
@@ -79,6 +91,8 @@ export default function ReportDrain({ onViewReports }) {
           locationText || `${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)}`,
         coords,
         description,
+        reportType,
+        subjectDescription: reportType === "person" ? subjectDescription : undefined,
         photo,
         video,
       });
@@ -118,13 +132,14 @@ export default function ReportDrain({ onViewReports }) {
               setSubmitted(null);
               setLocationText("");
               setDescription("");
+              setSubjectDescription("");
               setPhoto(null);
               setPhotoPreview(null);
               setVideo(null);
               setVideoPreview(null);
             }}
           >
-            Report another drain
+            Report another
           </Button>
         </div>
       </div>
@@ -135,6 +150,42 @@ export default function ReportDrain({ onViewReports }) {
   return (
     <form onSubmit={handleSubmit} className="grid md:grid-cols-12 gap-4 sm:gap-5">
       <div className="md:col-span-7 space-y-3 sm:space-y-4">
+        <Card className="!p-3 sm:!p-4">
+          <label className="font-display font-bold text-xs sm:text-sm text-forest block mb-2.5">What are you reporting?</label>
+          <div className="grid sm:grid-cols-3 gap-2">
+            {REPORT_TYPES.map((rt) => {
+              const active = rt.value === reportType;
+              return (
+                <button
+                  key={rt.value}
+                  type="button"
+                  onClick={() => setReportType(rt.value)}
+                  className={`text-left p-3 rounded-xl border transition-all ${active
+                      ? "bg-live-bg/40 border-live-text text-forest font-semibold"
+                      : "bg-white border-hairline text-body hover:border-forest/30"
+                    }`}
+                >
+                  <span className="text-xs sm:text-sm block">{rt.label}</span>
+                  <span className="text-[10px] sm:text-[11px] text-body/70 block mt-0.5 font-normal">{rt.description}</span>
+                </button>
+              );
+            })}
+          </div>
+        </Card>
+
+        {reportType === "person" && (
+          <Card className="!p-4 sm:!p-5">
+            <label className="font-display font-bold text-xs sm:text-sm text-forest block mb-2">Who are you reporting?</label>
+            <textarea
+              value={subjectDescription}
+              onChange={(e) => setSubjectDescription(e.target.value)}
+              rows={2}
+              placeholder="Describe the person and what they did — name if known, otherwise a physical description"
+              className="input-base resize-none !rounded-xl !p-3 text-xs sm:text-sm"
+            />
+          </Card>
+        )}
+
         <Card className="!p-3 sm:!p-4">
           <label className="font-display font-bold text-xs sm:text-sm text-forest block mb-2">Location details</label>
           <div className="relative mb-2">
@@ -182,14 +233,18 @@ export default function ReportDrain({ onViewReports }) {
 
         <Card className="!p-4 sm:!p-5">
           <div className="flex items-center justify-between mb-2">
-            <label className="font-display font-bold text-xs sm:text-sm text-forest">Blockage Description</label>
+            <label className="font-display font-bold text-xs sm:text-sm text-forest">Description</label>
             <VoiceInputButton onTranscript={setDescription} />
           </div>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            placeholder="What did you observe? (e.g. Silt buildup, plastic waste, overflowing water near road) — or tap Speak instead"
+            placeholder={
+              reportType === "person"
+                ? "What happened and where — or tap Speak instead"
+                : "What did you observe? (e.g. Silt buildup, plastic waste, overflowing water near road) — or tap Speak instead"
+            }
             className="input-base resize-none !rounded-xl !p-3 text-xs sm:text-sm"
           />
         </Card>
@@ -307,7 +362,7 @@ export default function ReportDrain({ onViewReports }) {
         {formError && <p className="text-xs text-coral font-semibold">{formError}</p>}
 
         <Button type="submit" className="w-full justify-center py-3 text-xs sm:text-sm font-bold" disabled={submitting}>
-          {submitting ? "Submitting report…" : "Submit Drain Report"}
+          {submitting ? "Submitting report…" : "Submit Report"}
         </Button>
       </div>
     </form>

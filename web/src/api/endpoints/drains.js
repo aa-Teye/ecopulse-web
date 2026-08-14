@@ -18,6 +18,10 @@ export async function submitDrainReport(report) {
   const form = new FormData()
   form.append('location', report.location)
   form.append('description', report.description)
+  form.append('report_type', report.reportType || 'drain')
+  if (report.subjectDescription) {
+    form.append('subject_description', report.subjectDescription)
+  }
   if (report.coords) {
     form.append('lat', report.coords.lat)
     form.append('lng', report.coords.lng)

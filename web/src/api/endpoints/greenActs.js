@@ -22,7 +22,7 @@ export async function fetchGreenActs() {
   return data
 }
 
-export async function submitGreenAct({ actionType, description, photo, video }) {
+export async function submitGreenAct({ actionType, description, photo, photoAfter, video }) {
   if (USE_MOCK) {
     await new Promise((r) => setTimeout(r, 500))
     const meta = ACTION_TYPES.find((a) => a.value === actionType)
@@ -33,6 +33,7 @@ export async function submitGreenAct({ actionType, description, photo, video }) 
       description,
       pointsAwarded: meta?.points ?? 10,
       photoUrl: null,
+      photoAfterUrl: null,
       videoUrl: null,
       userName: 'You',
       createdAt: new Date().toISOString(),
@@ -42,6 +43,7 @@ export async function submitGreenAct({ actionType, description, photo, video }) 
   form.append('action_type', actionType)
   form.append('description', description || '')
   if (photo) form.append('photo', photo)
+  if (photoAfter) form.append('photo_after', photoAfter)
   if (video) form.append('video', video)
   const { data } = await apiClient.post('/green-acts', form, {
     headers: { 'Content-Type': 'multipart/form-data' },

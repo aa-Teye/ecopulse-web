@@ -12,6 +12,7 @@ const ALLOWED_VIDEO_TYPES = /^video\/(mp4|quicktime|webm|3gpp)$/;
 export default function ReportGreenAct() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const afterFileInputRef = useRef(null);
   const videoInputRef = useRef(null);
   const addAct = useGreenActStore((s) => s.addAct);
 
@@ -19,9 +20,12 @@ export default function ReportGreenAct() {
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [photoAfter, setPhotoAfter] = useState(null);
+  const [photoAfterPreview, setPhotoAfterPreview] = useState(null);
   const [video, setVideo] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
   const [dragOver, setDragOver] = useState(false);
+  const [afterDragOver, setAfterDragOver] = useState(false);
   const [videoDragOver, setVideoDragOver] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(null);
@@ -42,6 +46,21 @@ export default function ReportGreenAct() {
     setFormError(null);
     setPhoto(file);
     setPhotoPreview(URL.createObjectURL(file));
+  }
+
+  function handleAfterFile(file) {
+    if (!file) return;
+    if (!/^image\/(jpeg|png)$/.test(file.type)) {
+      setFormError("Please use a JPEG or PNG photo.");
+      return;
+    }
+    if (file.size > 50 * 1024 * 1024) {
+      setFormError("Photo must be under 50MB.");
+      return;
+    }
+    setFormError(null);
+    setPhotoAfter(file);
+    setPhotoAfterPreview(URL.createObjectURL(file));
   }
 
   function handleVideoFile(file) {
@@ -68,7 +87,7 @@ export default function ReportGreenAct() {
     setFormError(null);
     setSubmitting(true);
     try {
-      const created = await addAct({ actionType, description, photo, video });
+      const created = await addAct({ actionType, description, photo, photoAfter, video });
       setSubmitted(created);
     } catch {
       setFormError("Something went wrong sending this, please try again.");
@@ -101,6 +120,8 @@ export default function ReportGreenAct() {
               setDescription("");
               setPhoto(null);
               setPhotoPreview(null);
+              setPhotoAfter(null);
+              setPhotoAfterPreview(null);
               setVideo(null);
               setVideoPreview(null);
             }}
@@ -170,50 +191,106 @@ export default function ReportGreenAct() {
 
         <div className="md:col-span-5 space-y-3 sm:space-y-4">
           <Card className="!p-3 sm:!p-4">
-            <label className="font-display font-bold text-xs sm:text-sm text-forest block mb-2">Photo (optional)</label>
-            <div
-              onDragOver={(e) => {
-                e.preventDefault();
-                setDragOver(true);
-              }}
-              onDragLeave={() => setDragOver(false)}
-              onDrop={(e) => {
-                e.preventDefault();
-                setDragOver(false);
-                handleFile(e.dataTransfer.files?.[0]);
-              }}
-              onClick={() => fileInputRef.current?.click()}
-              className={`rounded-xl border-2 border-dashed p-6 text-center cursor-pointer transition-all duration-200 ${dragOver
-                  ? "border-forest bg-mint"
-                  : "border-hairline hover:border-forest/40 hover:bg-mint/40"
-                }`}
-            >
-              {photoPreview ? (
-                <img
-                  src={photoPreview}
-                  alt="Green act preview"
-                  className="max-h-44 mx-auto rounded-xl object-cover shadow-sm"
-                />
-              ) : (
-                <>
-                  <div className="w-11 h-11 rounded-xl bg-mint flex items-center justify-center mx-auto mb-2 text-forest">
-                    <Camera size={20} strokeWidth={1.8} />
-                  </div>
-                  <p className="font-mono text-[11px] font-bold text-forest uppercase tracking-wider">
-                    DROP PHOTO OR CLICK TO UPLOAD
-                  </p>
-                  <p className="text-[11px] text-body mt-1">JPEG or PNG, up to 50MB</p>
-                </>
-              )}
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/jpeg,image/png"
-                capture="environment"
-                onChange={(e) => handleFile(e.target.files?.[0])}
-                className="hidden"
-              />
+            <label className="font-display font-bold text-xs sm:text-sm text-forest block mb-2">
+              Before / after photos (optional)
+            </label>
+            <p className="text-[11px] text-body mb-2.5">
+              Show the impact — a "before" shot and an "after" shot make the change obvious.
+            </p>
+            <div className="grid grid-cols-2 gap-2.5">
+              <div>
+                <p className="font-mono text-[10px] font-bold text-forest/70 uppercase tracking-wider mb-1.5">Before</p>
+                <div
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setDragOver(true);
+                  }}
+                  onDragLeave={() => setDragOver(false)}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setDragOver(false);
+                    handleFile(e.dataTransfer.files?.[0]);
+                  }}
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`rounded-xl border-2 border-dashed p-4 text-center cursor-pointer transition-all duration-200 ${dragOver
+                      ? "border-forest bg-mint"
+                      : "border-hairline hover:border-forest/40 hover:bg-mint/40"
+                    }`}
+                >
+                  {photoPreview ? (
+                    <img
+                      src={photoPreview}
+                      alt="Before preview"
+                      className="max-h-28 mx-auto rounded-lg object-cover shadow-sm"
+                    />
+                  ) : (
+                    <>
+                      <div className="w-9 h-9 rounded-xl bg-mint flex items-center justify-center mx-auto mb-1.5 text-forest">
+                        <Camera size={16} strokeWidth={1.8} />
+                      </div>
+                      <p className="font-mono text-[10px] font-bold text-forest uppercase tracking-wider">
+                        UPLOAD
+                      </p>
+                    </>
+                  )}
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png"
+                    capture="environment"
+                    onChange={(e) => handleFile(e.target.files?.[0])}
+                    className="hidden"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <p className="font-mono text-[10px] font-bold text-forest/70 uppercase tracking-wider mb-1.5">After</p>
+                <div
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setAfterDragOver(true);
+                  }}
+                  onDragLeave={() => setAfterDragOver(false)}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setAfterDragOver(false);
+                    handleAfterFile(e.dataTransfer.files?.[0]);
+                  }}
+                  onClick={() => afterFileInputRef.current?.click()}
+                  className={`rounded-xl border-2 border-dashed p-4 text-center cursor-pointer transition-all duration-200 ${afterDragOver
+                      ? "border-forest bg-mint"
+                      : "border-hairline hover:border-forest/40 hover:bg-mint/40"
+                    }`}
+                >
+                  {photoAfterPreview ? (
+                    <img
+                      src={photoAfterPreview}
+                      alt="After preview"
+                      className="max-h-28 mx-auto rounded-lg object-cover shadow-sm"
+                    />
+                  ) : (
+                    <>
+                      <div className="w-9 h-9 rounded-xl bg-mint flex items-center justify-center mx-auto mb-1.5 text-forest">
+                        <Camera size={16} strokeWidth={1.8} />
+                      </div>
+                      <p className="font-mono text-[10px] font-bold text-forest uppercase tracking-wider">
+                        UPLOAD
+                      </p>
+                    </>
+                  )}
+                  <input
+                    ref={afterFileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png"
+                    capture="environment"
+                    onChange={(e) => handleAfterFile(e.target.files?.[0])}
+                    className="hidden"
+                  />
+                </div>
+              </div>
             </div>
+            <p className="text-[11px] text-body mt-2">JPEG or PNG, up to 50MB each</p>
           </Card>
 
           <Card className="!p-3 sm:!p-4">

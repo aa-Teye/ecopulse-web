@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Routes, Route, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass, LogOut } from "lucide-react";
+import { User, Home as HomeIcon, BookOpen, Camera, Bell, Menu, X, Sparkles, Newspaper, MapPinned, Route as RouteIcon, Users2, Gamepad2, Compass, LogOut, Radio } from "lucide-react";
+import HackathonTV from "./pages/HackathonTV.jsx";
 import Home from "./pages/Home.jsx";
 import Report from "./pages/Report.jsx";
 import ReportGreenAct from "./pages/ReportGreenAct.jsx";
@@ -79,6 +80,13 @@ function Header() {
         </nav>
         {/* Right side controls */}
         <div className="flex items-center gap-2 sm:gap-3">
+          <NavLink
+            to="/live"
+            className="flex items-center gap-1.5 text-xs font-bold text-coral bg-coral/10 hover:bg-coral/20 transition-colors px-3 py-2 rounded-full"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse" />
+            Watch Live
+          </NavLink>
           <LanguageMenu />
           {authed ? (
             <>
@@ -352,6 +360,7 @@ export default function App() {
           <Route path="/news" element={<News />} />
           <Route path="/safe-routes" element={<SafeRoutes />} />
           <Route path="/community-status" element={<CommunityStatus />} />
+          <Route path="/live" element={<HackathonTV />} />
           <Route path="*" element={<Placeholder title="Not found" />} />
         </Routes>
       </main>
